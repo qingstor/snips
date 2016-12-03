@@ -82,21 +82,21 @@ we use scenario based test to make sure our SDKs are working properly, and
 ensure their functional consistency.
 
 ```
-+------------------------------------------------+--------------------+
-|                                                |  Workflow Diagram  |
-|       API Specifications                       +--------------------|
-|                   +                                                 |
-|                   |                               Scenario          |
-|     Templates     |               +------------->  Based            |
-|         +         |      +------>SDKs             Testing           |
-|         |         |      |        ^                  +              |
-|         |         v      |        |                  |              |
-|         +-----> Snips+---+        |                  |              |
-|                                   |                  |              |
-|                                   |                  v              |
-|       Handcraft+------------------+               Publish           |
-|                                                                     |
-+---------------------------------------------------------------------+
++---------------------------------------------+--------------------+
+|                                             |  Workflow Diagram  |
+|       API Specifications                    +--------------------|
+|                   +                                              |
+|                   |                               Scenario       |
+|     Templates     |               +------------->  Based         |
+|         +         |      +------>SDKs             Testing        |
+|         |         |      |        ^                  +           |
+|         |         v      |        |                  |           |
+|         +-----> Snips+---+        |                  |           |
+|                                   |                  |           |
+|                                   |                  v           |
+|       Handcraft+------------------+               Publish        |
+|                                                                  |
++------------------------------------------------------------------+
 ```
 
 #### Add an SDK for Another Programing Language
