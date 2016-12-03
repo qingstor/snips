@@ -1,0 +1,42 @@
+{
+  "template": {
+    "format": "Go"
+  },
+  "output": {
+    "file_naming": {
+      "style": "snake_case",
+      "extension": ".go"
+    }
+  },
+  "template_files": {
+    "shared": {
+      "file_path": "shared.tmpl"
+    },
+    "service": {
+      "file_path": "service.tmpl",
+      "output_file_naming": {
+        "prefix": "qs_",
+        "suffix": "_service"
+      }
+    },
+    "sub_service": {
+      "file_path": "sub_service.tmpl",
+      "output_file_naming": {
+        "prefix": "qs_",
+        "suffix": "_sub_service"
+      }
+    },
+    "types": {
+      "file_path": "types.tmpl",
+      "output_file_naming": {
+        "prefix": "qs_",
+        "suffix": ""
+      }
+    }
+  },
+  "supporting_files": [
+    "utils.go",
+    "utils_test.go",
+    "README.md"
+  ]
+}
