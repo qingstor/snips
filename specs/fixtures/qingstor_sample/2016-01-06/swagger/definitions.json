@@ -1,0 +1,70 @@
+{
+  "bucket": {
+    "description": "Bucket",
+    "type": "object",
+    "properties": {
+      "location": {
+        "description": "QingCloud Zone ID",
+        "type": "string"
+      },
+      "name": {
+        "description": "Bucket name",
+        "type": "string"
+      },
+      "url": {
+        "description": "URL to access the bucket",
+        "type": "string"
+      },
+      "created": {
+        "description": "Created time of the bucket",
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "key": {
+    "description": "Object key",
+    "type": "object",
+    "properties": {
+      "key": {
+        "description": "Object key",
+        "type": "string"
+      },
+      "mime_type": {
+        "description": "MIME type of the object",
+        "type": "string"
+      },
+      "etag": {
+        "description": "MD5sum of the object",
+        "type": "string"
+      },
+      "size": {
+        "description": "Object content size",
+        "type": "integer"
+      },
+      "modified": {
+        "description": "Last modified time in unix time format",
+        "type": "integer"
+      },
+      "created": {
+        "description": "Object created time",
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "owner": {
+    "description": "Bucket owner",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "User ID",
+        "type": "string"
+      },
+      "name": {
+        "description": "Username",
+        "type": "string"
+      }
+    }
+  }
+}

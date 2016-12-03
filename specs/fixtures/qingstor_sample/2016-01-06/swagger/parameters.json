@@ -1,0 +1,15 @@
+{
+  "bucketName": {
+    "name": "bucketName",
+    "description": "Bucket name",
+    "type": "string",
+    "required": true,
+    "in": "path"
+  },
+  "zone": {
+    "name": "zone",
+    "description": "QingCloud Zone ID",
+    "type": "string",
+    "in": "query"
+  }
+}

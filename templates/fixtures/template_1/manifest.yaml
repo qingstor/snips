@@ -1,0 +1,7 @@
+template_files:
+  service:
+    file_path: service_test.tmpl
+    format: Mustache
+    output_file_naming:
+      prefix: qs_
+      suffix: _service
