@@ -43,6 +43,14 @@ Flags:
   -v, --version                      Show version.
 ```
 
+## Installation
+
+`Snips` requires Go 1.6 or later.
+
+``` bash
+go get -u github.com/yunify/snips
+```
+
 ## LICENSE
 
 The Apache License (Version 2.0, January 2004).
