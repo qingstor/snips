@@ -1,0 +1,154 @@
+{
+  "parameters": [
+    {
+      "$ref": "#/parameters/bucketName"
+    },
+    {
+      "$ref": "#/parameters/zone"
+    }
+  ],
+  "get": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "ListObjects",
+    "summary": "GET Bucket (List Objects)",
+    "description": "Retrieve the object list in a bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/get.html"
+    },
+    "parameters": [
+      {
+        "name": "prefix",
+        "description": "Limits results to keys that begin with the prefix",
+        "type": "string",
+        "in": "query"
+      },
+      {
+        "name": "delimiter",
+        "description": "Put all keys that share a common prefix into a list",
+        "type": "string",
+        "in": "query"
+      },
+      {
+        "name": "marker",
+        "description": "Limit results to keys that start at this marker",
+        "type": "string",
+        "in": "query"
+      },
+      {
+        "name": "limit",
+        "description": "Results count limit",
+        "type": "integer",
+        "in": "query"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "description": "Bucket name",
+              "type": "string"
+            },
+            "owner": {
+              "$ref": "#/definitions/owner"
+            },
+            "prefix": {
+              "description": "Prefix that specified in request parameters",
+              "type": "string"
+            },
+            "delimiter": {
+              "description": "Delimiter that specified in request parameters",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Limit that specified in request parameters",
+              "type": "integer"
+            },
+            "marker": {
+              "description": "Marker that specified in request parameters",
+              "type": "string"
+            },
+            "next_marker": {
+              "description": "The last key in keys list",
+              "type": "string"
+            },
+            "keys": {
+              "description": "Object keys",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/key"
+              }
+            },
+            "common_prefixes": {
+              "description": "Other object keys that share common prefixes",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "not_exists"
+          ]
+        }
+      }
+    }
+  },
+  "put": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "PutBucket",
+    "summary": "PUT Bucket",
+    "description": "Create a new bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/put.html"
+    },
+    "responses": {
+      "201": {
+        "description": "Bucket created"
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "DeleteBucket",
+    "summary": "DELETE Bucket",
+    "description": "Delete a bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/delete.html"
+    },
+    "responses": {
+      "204": {
+        "description": "Bucket deleted"
+      }
+    }
+  },
+  "head": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "HeadBucket",
+    "summary": "HEAD Bucket",
+    "description": "Check whether the bucket exists and available.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/head.html"
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "schema": {
+          "type": "string",
+          "description": "This is response body",
+          "format": "binary"
+        }
+      }
+    }
+  }
+}

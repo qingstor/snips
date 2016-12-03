@@ -1,0 +1,16 @@
+{
+  "template_files": {
+    "ignore": {
+      "file_path": "ignore.tmpl"
+    },
+    "types": {
+      "file_path": "types.tmpl",
+      "output_file_naming": {
+        "prefix": "qs_",
+        "suffix": "",
+        "style": "camel_case",
+        "extension": ".any"
+      }
+    }
+  }
+}

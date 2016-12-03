@@ -1,0 +1,45 @@
+{
+  "get": {
+    "operationId": "ListBuckets",
+    "summary": "Get Service",
+    "description": "Retrieve the bucket list.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/service/get.html"
+    },
+    "parameters": [
+      {
+        "name": "Location",
+        "description": "Limits results to buckets that in the location",
+        "type": "string",
+        "in": "header"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "headers": {
+          "fake": {
+            "description": "Just a fake header",
+            "type": "string"
+          }
+        },
+        "schema": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "description": "Bucket count",
+              "type": "integer"
+            },
+            "buckets": {
+              "description": "Buckets information",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/bucket"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

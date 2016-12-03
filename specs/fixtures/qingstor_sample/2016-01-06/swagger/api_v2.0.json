@@ -1,0 +1,53 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2016-01-06",
+    "title": "QingStor",
+    "description": "QingStor provides low-cost and reliable online storage service with unlimited storage space, high read and write performance, high reliability and data safety, fine-grained access control, and easy to use API.",
+    "termsOfService": "https://www.qingcloud.com/about/tos",
+    "license": {
+      "name": "The Apache License (Version 2)",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "contact": {
+      "name": "Jingwen Peng",
+      "email": "pengsrc@yunify.com"
+    }
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "host": "qingstor.com",
+  "basePath": "/",
+  "paths": {
+    "/": {
+      "$ref": "./service.json"
+    },
+    "/{bucketName}": {
+      "$ref": "./bucket.json"
+    },
+    "/{bucketName}?stats": {
+      "$ref": "./bucket_stats.json"
+    }
+  },
+  "parameters": {
+    "bucketName": {
+      "$ref": "./parameters.json#/bucketName"
+    },
+    "zone": {
+      "$ref": "./parameters.json#/zone"
+    }
+  },
+  "definitions": {
+    "bucket": {
+      "$ref": "./definitions.json#/bucket"
+    },
+    "key": {
+      "$ref": "./definitions.json#/key"
+    },
+    "owner": {
+      "$ref": "./definitions.json#/owner"
+    }
+  }
+}

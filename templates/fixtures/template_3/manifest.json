@@ -1,0 +1,12 @@
+{
+  "output": {
+    "file_naming": {
+      "style": "camel_case",
+      "extension": ".rb"
+    }
+  },
+  "supporting_files": [
+    "utils.rb",
+    "README.md"
+  ]
+}
