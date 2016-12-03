@@ -1,0 +1,5 @@
+{{$customizedTypes := .Data.CustomizedTypes}}
+
+{{range $_, $customizedType := $customizedTypes}}
+// {{$customizedType | camelCase}}
+{{end}}

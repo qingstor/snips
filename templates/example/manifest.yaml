@@ -1,0 +1,67 @@
+# Manifest file for a bunch of templates.
+#   The manifest file can be in JSON or YAML format.
+
+# Template configurations
+template:
+  # Template files format
+  # Validate formats: Go
+  # Default: Go
+  format: Go
+
+# Output
+output:
+  file_naming:
+    # Naming style to use in the output file.
+    # Available styles: snake_case, camel_case
+    # Default: snake_case
+    # Example: bucket_acl (snake_case), BucketACL (camel_case)
+    style: snake_case
+    extension: .go
+
+# Template files to read and execute.
+#   Currently, there's are three of them.
+template_files:
+  # Shared template file.
+  # This file will be concatenated with each other template to provide shared
+  # nested template definitions.
+  shared:
+    # Relative file path to load the shared template file.
+    # Default: shared.tmpl
+    file_path: shared.tmpl
+
+  # Service template file.
+  # In this case, a file named "qs_qingstor_service.go" will be generated.
+  service:
+    # Relative file path to load service template file.
+    # Default: service.tmpl
+    file_path: service.tmpl
+    # Naming options for output file.
+    output_file_naming:
+      prefix: qs_
+      suffix: _service
+
+  # Service template file.
+  # In this case, multiple files named like "qs_bucket_sub_service.go"
+  # will be generated.
+  sub_service:
+    # Relative file path to load sub service template file.
+    # Default: sub_service.tmpl
+    file_path: sub_service.tmpl
+    output_file_naming:
+      prefix: qs_
+      suffix: _sub_service
+  # Types template file.
+  # In this case, a file named "qs_types.go" will be generated.
+  types:
+    # Relative file path to load types template file.
+    # Default: types.tmpl
+    file_path: types.tmpl
+    output_file_naming:
+      prefix: qs_
+      suffix:
+
+# Supporting files to copy directly.
+supporting_files:
+  - utils.go
+  - utils_test.go
+  - README.md
