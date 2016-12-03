@@ -8,16 +8,17 @@ PKGS_WITHOUT_VENDOR=$(shell go list ./... | grep -v "/vendor/")
 
 help:
 	@echo "Please use \`make <target>\` where <target> is one of"
-	@echo "  all        to check, build and test snips"
+	@echo "  all        to check, build, test and release snips"
 	@echo "  check      to vet and lint snips"
 	@echo "  build      to create bin directory and build snips"
+	@echo "  release    to build and release snips"
+	@echo "  clean      to clean build and test files"
 	@echo "  install    to install snips to /usr/local/bin/snips"
 	@echo "  uninstall  to uninstall snips"
-	@echo "  clean      to clean build and test files"
 	@echo "  test       to run test"
 	@echo "  coverage   to test with coverage"
 
-all: check build release test coverage
+all: check build release clean test coverage
 
 check: vet lint
 
