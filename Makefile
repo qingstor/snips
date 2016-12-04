@@ -29,8 +29,8 @@ vet:
 
 lint:
 	@echo "golint, on snips packages"
-	@lint=$$(for pkg in ${PKGS_WITHOUT_VENDOR}; do golint $${pkg}; done)
-	@if [[ -n $${lint} ]]; then echo "$${lint}"; exit 1; fi
+	@lint=$$(for pkg in ${PKGS_WITHOUT_VENDOR}; do golint $${pkg}; done); \
+	 if [[ -n $${lint} ]]; then echo "$${lint}"; exit 1; fi
 	@echo "ok"
 
 build:
@@ -79,7 +79,7 @@ test:
 coverage:
 	@echo "run test with coverage"
 	for pkg in ${PKGS_WITHOUT_VENDOR}; do \
-		output="coverage$${pkg#github.com/yunify/snips/src}"; \
+		output="coverage$${pkg#github.com/yunify/snips}"; \
 		mkdir -p $${output}; \
 		go test -v -cover -coverprofile="$${output}/profile.out" $${pkg}; \
 		if [[ -e "$${output}/profile.out" ]]; then \
