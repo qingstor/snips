@@ -165,7 +165,7 @@ ___Tips:___ _Include these files as git submodule._
 0. Running scenarios test, and pass all tests.
 
     ``` bash
-    $ pushd "./test"
+    $ pushd ./test
     $ go run *.go
     ...
     38 scenarios (38 passed)
