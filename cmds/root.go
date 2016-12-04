@@ -77,21 +77,21 @@ Copyright (C) 2016 Yunify, Inc.`,
 		}
 
 		if codeSpecDirectory == "" {
-			return errors.New("Please specify spec files directory.")
+			return errors.New("please specify spec files directory")
 		}
 		if _, err := os.Stat(codeSpecDirectory); err != nil {
-			return errors.New("Please make sure the specs directory exists.")
+			return errors.New("please make sure the specs directory exists")
 		}
 
 		if codeTemplateDirectory == "" {
-			return errors.New("Please specify templates directory.")
+			return errors.New("please specify templates directory")
 		}
 		if _, err := os.Stat(codeTemplateDirectory); err != nil {
-			return errors.New("Please make sure the templates directory exists.")
+			return errors.New("please make sure the templates directory exists")
 		}
 
 		if codeOutputDirectory == "" {
-			return errors.New("Please specify output files directory.")
+			return errors.New("please specify output files directory")
 		}
 
 		return nil
