@@ -119,15 +119,69 @@ ensure their functional consistency.
 Let's take Go SDK for QingStor ([`qingstor-sdk-go`][qingstor-sdk-go link]) for
 example.
 
-There's a directory that refer to the QingStor API specifications
-(`./specs/qingstor`), and a directory (`./templates`) that consisted of
-templates files which will be used to generate API code, and a directory
-(`./test/features`) refer to the test scenario definitions.
+#### Prepare
 
-Every time the QingStor API changes, just update the `specs/qingstor` submodule
-with `make update` and run regenerate code with `make generate`. Then add/change
-test for this API change, and the final step is to run the online test with
-`make test` to make sure the SDK is working properly.
+- `./specs/qingstor`: Refer to [the QingStor API specifications][api specs link]
+- `./test/features`: Refer to [the QingStor test scenarios][test scenarios link]
+
+___Tips:___ _Include these files as git submodule._
+
+#### Procedures
+
+0. Create template files which will be used to generate API code in `./template`.
+0. Generate code using snips, and format the generated code.
+
+    ``` bash
+    $ snips --service=qingstor \
+            --service-api-version=latest \
+            --spec="./specs" \
+            --template="./template" \
+            --output="./service"
+    Loaded templates from ./template
+    4 template(s) detected.
+    Loaded service QingStor (2016-01-06) from ./specs
+
+    Generating to: ./service/qingstor.go
+    Generating to: ./service/object.go
+    Generating to: ./service/bucket.go
+    Generating to: ./service/types.go
+
+    Everything looks fine.
+    $ gofmt -w .
+    ```
+
+0. Implement test scenarios in `./test`.
+
+    ``` bash
+    $ ls ./test
+    bucket.go                 config.yaml.example       test_config.yaml
+    bucket_acl.go             features                  test_config.yaml.example
+    bucket_cors.go            main.go                   utils.go
+    bucket_external_mirror.go object.go                 vendor
+    bucket_policy.go          object_multipart.go
+    config.yaml               service.go
+    ```
+ 
+0. Running scenarios test, and pass all tests.
+
+    ``` bash
+    $ pushd "./test"
+    $ go run *.go
+    ...
+    38 scenarios (38 passed)
+    84 steps (84 passed)
+    1m2.408357076s
+    $ popd
+    ```
+
+0. Every time the QingStor API changes, just update the `specs/qingstor` and
+`./test/features` submodule and regenerate code. Then add/change test for this
+API change, and rerun the online test to make sure the SDK is working properly.
+
+## References
+
+- [QingStor API Specs][api specs link]
+- [QingStor SDK Test Scenarios][test scenarios link]
 
 ## Contributing
 
@@ -140,6 +194,8 @@ The Apache License (Version 2.0, January 2004).
 
 [govender link]: https://github.com/kardianos/govendor
 [qingstor-sdk-go link]: https://github.com/yunify/qingstor-sdk-go
+[api specs link]: https://github.com/yunify/qingstor-api-specs
+[test scenarios link]: https://github.com/yunify/qingstor-sdk-test-scenarios
 
 [release link]: https://github.com/yunify/snips/releases
 [example download link]: https://github.com/yunify/snips/releases/download/v0.0.7/snips-v0.0.7-darwin_amd64.tar.gz
