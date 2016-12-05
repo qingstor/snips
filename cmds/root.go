@@ -42,13 +42,34 @@ var (
 )
 
 func init() {
-	RootCMD.Flags().BoolVarP(&flagVersion, "version", "v", false, "Show version.")
-	RootCMD.Flags().StringVarP(&codeServiceModule, "service", "m", "", "Service to use.")
-	RootCMD.Flags().StringVarP(&codeServiceAPIVersion, "service-api-version", "n", "latest", "Service API version to use.")
-	RootCMD.Flags().StringVarP(&codeSpecDirectory, "spec", "s", "", "Spec files directory.")
-	RootCMD.Flags().StringVarP(&codeSpecFormat, "spec-format", "", "Swagger-v2.0", "Format of spec file.")
-	RootCMD.Flags().StringVarP(&codeTemplateDirectory, "template", "t", "", "Template files directory.")
-	RootCMD.Flags().StringVarP(&codeOutputDirectory, "output", "o", "", "Output files directory.")
+	RootCMD.Flags().BoolVarP(
+		&flagVersion, "version", "v", false,
+		"Show version.",
+	)
+	RootCMD.Flags().StringVarP(
+		&codeServiceModule, "service", "m", "",
+		"Choose the service to use.",
+	)
+	RootCMD.Flags().StringVarP(
+		&codeServiceAPIVersion, "service-api-version", "n", "latest",
+		"Choose the service API version to use.",
+	)
+	RootCMD.Flags().StringVarP(
+		&codeSpecDirectory, "spec", "s", "",
+		"Specify spec files directory.",
+	)
+	RootCMD.Flags().StringVarP(
+		&codeSpecFormat, "spec-format", "", "Swagger-v2.0",
+		"Specify the format of spec file.",
+	)
+	RootCMD.Flags().StringVarP(
+		&codeTemplateDirectory, "template", "t", "",
+		"Specify template files directory.",
+	)
+	RootCMD.Flags().StringVarP(
+		&codeOutputDirectory, "output", "o", "",
+		"Specify the output directory.",
+	)
 }
 
 // RootCMD represents the base command when called without any subcommands.
