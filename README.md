@@ -39,12 +39,12 @@ Usage:
   snips [flags]
 
 Flags:
-  -o, --output string                Output files directory.
-  -i, --service-api-version string   Service API version to use. (default "latest")
-  -m, --service string               Service to use.
-  -s, --spec string                  Spec files directory.
-      --spec-format string           Format of spec file. (default "Swagger-v2.0")
-  -t, --template string              Template files directory.
+  -o, --output string                Specify the output directory.
+  -m, --service string               Choose the service to use.
+  -n, --service-api-version string   Choose the service API version to use. (default "latest")
+  -s, --spec string                  Specify spec files directory.
+      --spec-format string           Specify the format of spec file. (default "Swagger-v2.0")
+  -t, --template string              Specify template files directory.
   -v, --version                      Show version.
 ```
 
