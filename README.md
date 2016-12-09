@@ -122,7 +122,7 @@ example.
 #### Prepare
 
 - `./specs/qingstor`: Refer to [the QingStor API specifications][api specs link]
-- `./test/features`: Refer to [the QingStor test scenarios][test scenarios link]
+- `./test/features`: Refer to [the QingStor SDK test scenarios][sdk test scenarios link]
 
 ___Tips:___ _Include these files as git submodule._
 
@@ -181,7 +181,7 @@ API change, and rerun the online test to make sure the SDK is working properly.
 ## References
 
 - [QingStor API Specs][api specs link]
-- [QingStor SDK Test Scenarios][test scenarios link]
+- [QingStor SDK Test Scenarios][sdk test scenarios link]
 
 ## Contributing
 
@@ -195,7 +195,7 @@ The Apache License (Version 2.0, January 2004).
 [govender link]: https://github.com/kardianos/govendor
 [qingstor-sdk-go link]: https://github.com/yunify/qingstor-sdk-go
 [api specs link]: https://github.com/yunify/qingstor-api-specs
-[test scenarios link]: https://github.com/yunify/qingstor-sdk-test-scenarios
+[sdk test scenarios link]: https://github.com/yunify/qingstor-sdk-test-scenarios
 
 [release link]: https://github.com/yunify/snips/releases
 [example download link]: https://github.com/yunify/snips/releases/download/v0.0.7/snips-v0.0.7-darwin_amd64.tar.gz
