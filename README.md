@@ -3,6 +3,8 @@
 <span style="display: inline-block">
 [![Build Status](https://travis-ci.org/yunify/snips.svg?branch=master)]
 (https://travis-ci.org/yunify/snips)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yunify/snips)]
+(https://goreportcard.com/report/github.com/yunify/snips)
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)]
 (https://github.com/yunify/snips/blob/master/LICENSE)
 </span>
