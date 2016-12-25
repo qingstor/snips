@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: all check vet lint build install uninstall release clean test coverage
+.PHONY: all check vet lint build test coverage install uninstall release clean
 
 VERSION=$(shell cat metadata/version.go | grep "Version\ =" | sed -e s/^.*\ //g | sed -e s/\"//g)
 DIRS_WITHOUT_VENDOR=$(shell ls -d */ | grep -vE "vendor")
@@ -11,12 +11,12 @@ help:
 	@echo "  all        to check, build, test and release snips"
 	@echo "  check      to vet and lint snips"
 	@echo "  build      to create bin directory and build snips"
-	@echo "  release    to build and release snips"
-	@echo "  clean      to clean build and test files"
-	@echo "  install    to install snips to /usr/local/bin/snips"
-	@echo "  uninstall  to uninstall snips"
 	@echo "  test       to run test"
 	@echo "  coverage   to test with coverage"
+	@echo "  install    to install snips to /usr/local/bin/snips"
+	@echo "  uninstall  to uninstall snips"
+	@echo "  release    to build and release snips"
+	@echo "  clean      to clean build and test files"
 
 all: check build release clean test coverage
 
@@ -37,6 +37,23 @@ build:
 	@echo "build snips"
 	mkdir -p ./bin
 	go build -o ./bin/snips .
+	@echo "ok"
+
+test:
+	@echo "run test"
+	go test -v ${PKGS_WITHOUT_VENDOR}
+	@echo "ok"
+
+coverage:
+	@echo "run test with coverage"
+	for pkg in ${PKGS_WITHOUT_VENDOR}; do \
+		output="coverage$${pkg#github.com/yunify/snips}"; \
+		mkdir -p $${output}; \
+		go test -v -cover -coverprofile="$${output}/profile.out" $${pkg}; \
+		if [[ -e "$${output}/profile.out" ]]; then \
+			go tool cover -html="$${output}/profile.out" -o "$${output}/profile.html"; \
+		fi; \
+	done
 	@echo "ok"
 
 install: build
@@ -70,20 +87,3 @@ clean:
 	rm -rf ./bin
 	rm -rf ./release
 	rm -rf ./coverage
-
-test:
-	@echo "run test"
-	go test -v ${PKGS_WITHOUT_VENDOR}
-	@echo "ok"
-
-coverage:
-	@echo "run test with coverage"
-	for pkg in ${PKGS_WITHOUT_VENDOR}; do \
-		output="coverage$${pkg#github.com/yunify/snips}"; \
-		mkdir -p $${output}; \
-		go test -v -cover -coverprofile="$${output}/profile.out" $${pkg}; \
-		if [[ -e "$${output}/profile.out" ]]; then \
-			go tool cover -html="$${output}/profile.out" -o "$${output}/profile.html"; \
-		fi; \
-	done
-	@echo "ok"
