@@ -29,3 +29,5 @@ gen
 bin
 release
 coverage
+.idea
+publish
