@@ -61,7 +61,10 @@ func LoadServices(specDirectory, specFormat string, serviceModule string) (*Serv
 	serviceModule = utils.SnakeCaseToSnakeCase(serviceModule, true)
 
 	if _, err := os.Stat(specDirectory + "/" + serviceModule); err != nil {
-		return nil, fmt.Errorf("spec of service \"%s\" not found", serviceModule)
+		serviceModule = strings.Replace(serviceModule, "_", "-", -1)
+		if _, err := os.Stat(specDirectory + "/" + serviceModule); err != nil {
+			return nil, fmt.Errorf("spec of service \"%s\" not found", serviceModule)
+		}
 	}
 
 	service := &Service{
