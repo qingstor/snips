@@ -204,10 +204,9 @@ func (s *Swagger) parseOperation(
 	parsedURI = utils.CamelCaseToDashConnected(parsedURI)
 
 	operation := &capsules.Operation{
-		ID:               specOperation.ID,
-		Name:             specOperation.Summary,
-		Description:      specOperation.Description,
-		DocumentationURL: specOperation.ExternalDocs.URL,
+		ID:          specOperation.ID,
+		Name:        specOperation.Summary,
+		Description: specOperation.Description,
 		Request: &capsules.Request{
 			Method: method,
 			URI:    parsedURI,
@@ -242,6 +241,10 @@ func (s *Swagger) parseOperation(
 			},
 			Body: &capsules.Property{},
 		},
+	}
+
+	if specOperation.ExternalDocs != nil {
+		operation.DocumentationURL = specOperation.ExternalDocs.URL
 	}
 
 	for _, param := range specOperation.Parameters {
