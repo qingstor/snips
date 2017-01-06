@@ -162,7 +162,7 @@ func (s *Swagger) loadService(
 		Operations:  allOperations[serviceName+"Service"],
 	}
 
-	if s.Data.Service.Name == "QingCloud" {
+	if !strings.Contains(s.Data.Service.Name, "QingStor") {
 		for _, o := range s.Data.Service.Operations {
 			var exchange *capsules.CustomizedType
 			exchange = o.Request.Params
@@ -188,7 +188,7 @@ func (s *Swagger) loadSubService(
 				//Service:    s.Data.Service,
 			}
 
-			if s.Data.Service.Name == "QingCloud" {
+			if !strings.Contains(s.Data.Service.Name, "QingStor") {
 				for _, o := range s.Data.SubServices[subServiceName].Operations {
 					var exchange *capsules.CustomizedType
 					exchange = o.Request.Params
