@@ -23,7 +23,6 @@ import (
 	"github.com/go-openapi/spec"
 
 	"github.com/yunify/snips/capsules"
-	"github.com/yunify/snips/utils"
 )
 
 func (s *Swagger) intermediateType(typeName, formatName string) string {
@@ -200,8 +199,6 @@ func (s *Swagger) parseOperation(
 	specOperation *spec.Operation, swagger *spec.Swagger) *capsules.Operation {
 
 	parsedURI := strings.Replace(uri, "?upload_id", "", -1)
-	parsedURI = utils.ReplaceCurlyBracketWithSquare(parsedURI)
-	parsedURI = utils.CamelCaseToDashConnected(parsedURI)
 
 	operation := &capsules.Operation{
 		ID:          specOperation.ID,
