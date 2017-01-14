@@ -185,7 +185,6 @@ func (s *Swagger) loadSubService(
 				Name:       subServiceName,
 				Properties: allProperties[subService],
 				Operations: operations,
-				//Service:    s.Data.Service,
 			}
 
 			if !strings.Contains(s.Data.Service.Name, "QingStor") {
