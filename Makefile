@@ -8,17 +8,17 @@ PKGS_WITHOUT_VENDOR=$(shell go list ./... | grep -v "/vendor/")
 
 help:
 	@echo "Please use \`make <target>\` where <target> is one of"
-	@echo "  all        to check, build, test and release snips"
-	@echo "  check      to vet and lint snips"
-	@echo "  build      to create bin directory and build snips"
-	@echo "  test       to run test"
-	@echo "  coverage   to test with coverage"
-	@echo "  install    to install snips to /usr/local/bin/snips"
-	@echo "  uninstall  to uninstall snips"
-	@echo "  release    to build and release snips"
-	@echo "  clean      to clean build and test files"
+	@echo "  all           to check, build, test and release snips"
+	@echo "  check         to vet and lint snips"
+	@echo "  build         to create bin directory and build snips"
+	@echo "  unit-test     to run test"
+	@echo "  unit-coverage to test with coverage"
+	@echo "  install       to install snips to /usr/local/bin/snips"
+	@echo "  uninstall     to uninstall snips"
+	@echo "  release       to build and release snips"
+	@echo "  clean         to clean build and test files"
 
-all: check build release clean test coverage
+all: check build release clean unit-test unit-coverage
 
 check: vet lint
 
@@ -39,12 +39,12 @@ build:
 	go build -o ./bin/snips .
 	@echo "ok"
 
-test:
+unit-test:
 	@echo "run test"
 	go test -v ${PKGS_WITHOUT_VENDOR}
 	@echo "ok"
 
-coverage:
+unit-coverage:
 	@echo "run test with coverage"
 	for pkg in ${PKGS_WITHOUT_VENDOR}; do \
 		output="coverage$${pkg#github.com/yunify/snips}"; \
