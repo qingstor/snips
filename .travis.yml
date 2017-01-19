@@ -11,5 +11,5 @@ script:
   - make build
   - make release
   - make clean
-  - make test
-  - make coverage
+  - make unit-test
+  - make unit-coverage
