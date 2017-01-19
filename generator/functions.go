@@ -77,7 +77,7 @@ func passThrough(data ...interface{}) []interface{} {
 	return data
 }
 
-func firstPropertyIDInCustomizedType(customizedType *capsules.CustomizedType) string {
+func firstPropertyIDInCustomizedType(customizedType *capsules.Property) string {
 	keys := []string{}
 	for key := range customizedType.Properties {
 		keys = append(keys, key)

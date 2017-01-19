@@ -45,4 +45,9 @@ func TestSwagger_Parse(t *testing.T) {
 	location := listBuckets.Request.Headers.Properties["Location"]
 	assert.Equal(t, "Location", location.Name)
 	assert.Equal(t, "string", location.Type)
+
+	bucket := swagger.Data.CustomizedTypes["bucket"]
+	assert.Equal(t, "bucket", bucket.Name)
+	assert.Equal(t, "Bucket", bucket.Description)
+	assert.Equal(t, "object", bucket.Type)
 }

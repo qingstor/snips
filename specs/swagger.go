@@ -48,7 +48,7 @@ func (s *Swagger) Parse(version string) error {
 			return err
 		}
 
-		allProperties := map[string]*capsules.CustomizedType{}
+		allProperties := map[string]*capsules.Property{}
 		allOperations := map[string]map[string]*capsules.Operation{}
 		s.parseOperations(document.Spec(), allProperties, allOperations)
 
@@ -65,11 +65,11 @@ func (s *Swagger) Parse(version string) error {
 
 func (s *Swagger) parseOperations(
 	swagger *spec.Swagger,
-	allProperties map[string]*capsules.CustomizedType,
+	allProperties map[string]*capsules.Property,
 	allOperations map[string]map[string]*capsules.Operation) {
 
 	parseOperation := func(uri string, method string,
-		specOperation *spec.Operation, property *capsules.CustomizedType) {
+		specOperation *spec.Operation, property *capsules.Property) {
 		if specOperation.ID == "PostObject" {
 			return
 		}
@@ -101,7 +101,7 @@ func (s *Swagger) parseOperations(
 	}
 
 	for requestURI, pathItem := range swagger.Paths.Paths {
-		property := &capsules.CustomizedType{
+		property := &capsules.Property{
 			Properties: map[string]*capsules.Property{},
 		}
 
@@ -140,16 +140,16 @@ func (s *Swagger) loadData(swagger *spec.Swagger) {
 	}
 	s.Data.Service = nil
 	s.Data.SubServices = map[string]*capsules.SubService{}
-	s.Data.CustomizedTypes = map[string]*capsules.CustomizedType{}
+	s.Data.CustomizedTypes = map[string]*capsules.Property{}
 }
 
 func (s *Swagger) loadService(
 	swagger *spec.Swagger,
-	allProperties map[string]*capsules.CustomizedType,
+	allProperties map[string]*capsules.Property,
 	allOperations map[string]map[string]*capsules.Operation) {
 	serviceName := swagger.Info.Title
 
-	property := &capsules.CustomizedType{}
+	property := &capsules.Property{}
 	if allProperties[swagger.Info.Title] != nil {
 		property = allProperties[serviceName]
 	}
@@ -164,8 +164,7 @@ func (s *Swagger) loadService(
 
 	if !strings.Contains(s.Data.Service.Name, "QingStor") {
 		for _, o := range s.Data.Service.Operations {
-			var exchange *capsules.CustomizedType
-			exchange = o.Request.Params
+			exchange := o.Request.Params
 			o.Request.Params = o.Request.Elements
 			o.Request.Elements = exchange
 		}
@@ -174,7 +173,7 @@ func (s *Swagger) loadService(
 
 func (s *Swagger) loadSubService(
 	swagger *spec.Swagger,
-	allProperties map[string]*capsules.CustomizedType,
+	allProperties map[string]*capsules.Property,
 	allOperations map[string]map[string]*capsules.Operation) {
 
 	for subService, operations := range allOperations {
@@ -189,8 +188,7 @@ func (s *Swagger) loadSubService(
 
 			if !strings.Contains(s.Data.Service.Name, "QingStor") {
 				for _, o := range s.Data.SubServices[subServiceName].Operations {
-					var exchange *capsules.CustomizedType
-					exchange = o.Request.Params
+					exchange := o.Request.Params
 					o.Request.Params = o.Request.Elements
 					o.Request.Elements = exchange
 				}
@@ -200,22 +198,13 @@ func (s *Swagger) loadSubService(
 }
 
 func (s *Swagger) loadCustomizedTypes(swagger *spec.Swagger) {
-	for definitionName, definition := range swagger.Definitions {
-		s.Data.CustomizedTypes[definitionName] = &capsules.CustomizedType{
-			ID:         definitionName,
-			Name:       definitionName,
-			Properties: map[string]*capsules.Property{},
-		}
-
-		for name, schema := range definition.SchemaProps.Properties {
-			property := s.parseSchema(&schema)
-			property.Name = name
-			property.ID = name
-			s.Data.CustomizedTypes[definitionName].Properties[name] = property
-		}
+	for name, definition := range swagger.Definitions {
+		s.Data.CustomizedTypes[name] = s.parseSchema(&definition)
+		s.Data.CustomizedTypes[name].ID = name
+		s.Data.CustomizedTypes[name].Name = name
 
 		for _, schemaKey := range definition.SchemaProps.Required {
-			s.Data.CustomizedTypes[definitionName].Properties[schemaKey].IsRequired = true
+			s.Data.CustomizedTypes[name].Properties[schemaKey].IsRequired = true
 		}
 	}
 }
