@@ -125,6 +125,14 @@ func (s *Swagger) parseSchema(schema *spec.Schema) *capsules.Property {
 		defaultValue = fmt.Sprintf("%v", schema.Default)
 	}
 
+	properties := map[string]*capsules.Property{}
+	for name, schema := range schema.SchemaProps.Properties {
+		property := s.parseSchema(&schema)
+		property.ID = name
+		property.Name = name
+		properties[name] = property
+	}
+
 	return &capsules.Property{
 		Description: targetSchema.Description,
 		Type:        targetType,
@@ -132,6 +140,7 @@ func (s *Swagger) parseSchema(schema *spec.Schema) *capsules.Property {
 		Format:      targetFormat,
 		Enum:        s.parseEnum(targetSchema.Enum),
 		Default:     defaultValue,
+		Properties:  properties,
 	}
 }
 
@@ -207,17 +216,17 @@ func (s *Swagger) parseOperation(
 		Request: &capsules.Request{
 			Method: method,
 			URI:    parsedURI,
-			Params: &capsules.CustomizedType{
+			Params: &capsules.Property{
 				ID:         specOperation.ID + "Input",
 				Name:       specOperation.Summary + " Input",
 				Properties: map[string]*capsules.Property{},
 			},
-			Headers: &capsules.CustomizedType{
+			Headers: &capsules.Property{
 				ID:         specOperation.ID + "Input",
 				Name:       specOperation.Summary + " Input",
 				Properties: map[string]*capsules.Property{},
 			},
-			Elements: &capsules.CustomizedType{
+			Elements: &capsules.Property{
 				ID:         specOperation.ID + "Input",
 				Name:       specOperation.Summary + " Input",
 				Properties: map[string]*capsules.Property{},
@@ -226,12 +235,12 @@ func (s *Swagger) parseOperation(
 		},
 		Response: &capsules.Response{
 			StatusCodes: map[int]*capsules.StatusCode{},
-			Headers: &capsules.CustomizedType{
+			Headers: &capsules.Property{
 				ID:         specOperation.ID + "Output",
 				Name:       specOperation.Summary + " Output",
 				Properties: map[string]*capsules.Property{},
 			},
-			Elements: &capsules.CustomizedType{
+			Elements: &capsules.Property{
 				ID:         specOperation.ID + "Output",
 				Name:       specOperation.Summary + " Output",
 				Properties: map[string]*capsules.Property{},

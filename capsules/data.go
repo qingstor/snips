@@ -20,7 +20,7 @@ package capsules
 type Data struct {
 	Service         *Service
 	SubServices     map[string]*SubService
-	CustomizedTypes map[string]*CustomizedType
+	CustomizedTypes map[string]*Property
 }
 
 // Service stores the data of a service.
@@ -28,7 +28,7 @@ type Service struct {
 	APIVersion  string
 	Name        string
 	Description string
-	Properties  *CustomizedType
+	Properties  *Property
 	Operations  map[string]*Operation
 }
 
@@ -36,7 +36,7 @@ type Service struct {
 type SubService struct {
 	ID         string
 	Name       string
-	Properties *CustomizedType
+	Properties *Property
 	Operations map[string]*Operation
 }
 
@@ -54,30 +54,23 @@ type Operation struct {
 type Request struct {
 	Method   string
 	URI      string
-	Params   *CustomizedType
-	Headers  *CustomizedType
-	Elements *CustomizedType
+	Params   *Property
+	Headers  *Property
+	Elements *Property
 	Body     *Property
 }
 
 // Response stores the data of response section.
 type Response struct {
 	StatusCodes map[int]*StatusCode
-	Headers     *CustomizedType
-	Elements    *CustomizedType
+	Headers     *Property
+	Elements    *Property
 	Body        *Property
 }
 
 // StatusCode stores the data of status code.
 type StatusCode struct {
 	Description string
-}
-
-// CustomizedType stores the data of a CustomizedType.
-type CustomizedType struct {
-	ID         string
-	Name       string
-	Properties map[string]*Property
 }
 
 // Property describes info of a property.
@@ -91,4 +84,5 @@ type Property struct {
 	Enum        []string
 	Default     string
 	IsRequired  bool
+	Properties  map[string]*Property
 }
