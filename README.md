@@ -1,13 +1,8 @@
 # Snips
 
-<span style="display: inline-block">
-[![Build Status](https://travis-ci.org/yunify/snips.svg?branch=master)]
-(https://travis-ci.org/yunify/snips)
-[![Go Report Card](https://goreportcard.com/badge/github.com/yunify/snips)]
-(https://goreportcard.com/report/github.com/yunify/snips)
-[![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)]
-(https://github.com/yunify/snips/blob/master/LICENSE)
-</span>
+[![Build Status](https://travis-ci.org/yunify/snips.svg?branch=master)](https://travis-ci.org/yunify/snips)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yunify/snips)](https://goreportcard.com/report/github.com/yunify/snips)
+[![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/snips/blob/master/LICENSE)
 
 A code generator for QingCloud & QingStor SDKs.
 
@@ -163,7 +158,7 @@ ___Tips:___ _Include these files as git submodule._
     bucket_policy.go          object_multipart.go
     config.yaml               service.go
     ```
- 
+
 0. Running scenarios test, and pass all tests.
 
     ``` bash
