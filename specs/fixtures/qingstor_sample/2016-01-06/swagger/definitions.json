@@ -40,7 +40,7 @@
       },
       "size": {
         "description": "Object content size",
-        "type": "integer"
+        "type": "long"
       },
       "modified": {
         "description": "Last modified time in unix time format",

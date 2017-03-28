@@ -29,7 +29,7 @@ func (s *Swagger) intermediateType(typeName, formatName string) string {
 	intermediateTypesMap := map[string]string{
 		"integer":                  "integer",
 		"integer-int32":            "integer",
-		"integer-int64":            "integer",
+		"integer-int64":            "long",
 		"number":                   "float",
 		"number-float":             "float",
 		"number-double":            "double",

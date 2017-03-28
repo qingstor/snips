@@ -29,7 +29,7 @@ func TestSwagger_getIntermediateType(t *testing.T) {
 	swagger := Swagger{}
 
 	assert.Equal(t, "integer", swagger.intermediateType("integer", "int32"))
-	assert.Equal(t, "integer", swagger.intermediateType("integer", "int64"))
+	assert.Equal(t, "long", swagger.intermediateType("integer", "int64"))
 	assert.Equal(t, "binary", swagger.intermediateType("string", "binary"))
 	assert.Equal(t, "timestamp", swagger.intermediateType("string", "date-time-rfc822"))
 	assert.Equal(t, "string", swagger.intermediateType("password", ""))
