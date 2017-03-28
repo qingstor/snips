@@ -1,5 +1,6 @@
 language: go
 go:
+  - 1.8
   - 1.7
   - 1.6
 
@@ -11,5 +12,5 @@ script:
   - make build
   - make release
   - make clean
-  - make unit-test
-  - make unit-coverage
+  - make test
+  - make test-coverage
