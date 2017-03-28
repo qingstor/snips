@@ -29,7 +29,7 @@
             },
             "size": {
               "description": "Bucket storage size",
-              "type": "integer"
+              "type": "long"
             },
             "location": {
               "description": "QingCloud Zone ID",
