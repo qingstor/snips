@@ -53,8 +53,8 @@ it from source code or download the precompiled binary directly.
 ### Install from Source Code
 
 Snips requires Go 1.6 or later's vendor feature, the dependencies the project
-used are included in the `vendor` directory. And we use [govendor]
-[govender link] to manage project dependence.
+used are included in the `vendor` directory. And we use [govendor][govender link]
+to manage project dependence.
 
 ``` bash
 go get -u github.com/yunify/snips
