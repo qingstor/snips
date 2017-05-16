@@ -38,6 +38,7 @@ var lowerCaseToCapitalizedWordsMap = map[string]string{
 	"dyn":           "DYN",
 	"eip":           "EIP",
 	"eips":          "EIPs",
+	"http":          "HTTP",
 	"icp":           "ICP",
 	"id":            "ID",
 	"ids":           "IDs",
