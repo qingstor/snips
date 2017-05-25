@@ -27,6 +27,8 @@ import (
 
 func (s *Swagger) intermediateType(typeName, formatName string) string {
 	intermediateTypesMap := map[string]string{
+		"boolean":                  "boolean",
+		"date":                     "timestamp",
 		"integer":                  "integer",
 		"integer-int32":            "integer",
 		"integer-int64":            "long",
@@ -36,12 +38,10 @@ func (s *Swagger) intermediateType(typeName, formatName string) string {
 		"string":                   "string",
 		"string-byte":              "base64",
 		"string-binary":            "binary",
-		"boolean":                  "boolean",
-		"date":                     "timestamp",
+		"string-password":          "string",
 		"string-date-time":         "timestamp",
 		"string-date-time-rfc822":  "timestamp",
 		"string-date-time-iso8601": "timestamp",
-		"password":                 "string",
 
 		"array":  "array",
 		"object": "object",
