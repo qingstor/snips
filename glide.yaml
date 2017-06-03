@@ -1,0 +1,60 @@
+package: github.com/yunify/snips
+import:
+
+# Go OpenAPI
+- package: github.com/go-openapi/spec
+  version: 82a7c91660350d5e39c457c4decc21acde7404eb
+  repo:    https://github.com/pengsrc/go-openapi-spec.git
+- package: github.com/go-openapi/analysis
+  version: 7222828b8ce19afee3c595aef6643b9e42150120
+- package: github.com/go-openapi/jsonpointer
+  version: 46af16f9f7b149af66e5d1bd010e3574dc06de98
+- package: github.com/go-openapi/jsonreference
+  version: 13c6e3589ad90f49bd3e3bbe2c2cb3d7a4142272
+- package: github.com/go-openapi/loads
+  version: 5861a4879a2866943dce3c644c879af9e59c22a3
+- package: github.com/go-openapi/swag
+  version: c98c5a1cc708d9860aeeceea6391da6f223d479c
+
+# Command-line
+- package: github.com/spf13/cobra
+  verison: 6e91dded25d73176bf7f60b40dd7aa1f0bf9be8d
+- package: github.com/spf13/pflag
+  verison: 5ccb023bc27df288a957c5e994cd44fd19619465
+
+# URL
+- package: github.com/PuerkitoBio/purell
+  version: 8a290539e2e8629dbc4e6bad948158f790ec31f4
+- package: github.com/PuerkitoBio/urlesc
+  version: 5bd2802263f21d8788851d5305584c82a5c75d7e
+- package: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+
+# Struct
+- package: github.com/imdario/mergo
+  version: 3e95a51e0639b4cf372f2ccf74c86749d747fbdc
+
+# JSON
+- package: github.com/mailru/easyjson
+  version: 9dc3521db3580379d6cc493938ef9d2e9782ee7b
+
+# YAML
+- package: gopkg.in/yaml.v2
+  version: a5b47d31c556af34a302ce5d659e6fea44d90de0
+  repo:    https://github.com/go-yaml/yaml.git
+
+# Golang
+- package: golang.org/x/net
+  version: f11d7120b19ae21da5715f3e47621736de1b1da9
+  repo:    https://github.com/golang/net.git
+- package: golang.org/x/text
+  version: 5a42fa2464759cbb7ee0af9de00b54d69f09a29c
+  repo:    https://github.com/golang/text.git
+
+# Test
+- package: github.com/stretchr/testify
+  version: v1.1.4
+- package: github.com/davecgh/go-spew
+  version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
+- package: github.com/pmezard/go-difflib
+  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
