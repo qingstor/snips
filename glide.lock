@@ -1,5 +1,5 @@
-hash: 12bc99c232a76d6aad416110f12dbf7c1641c2708553a24afb29b4ecfee3e157
-updated: 2017-06-03T17:22:27.637722587+08:00
+hash: 310679f2d3b1792f2b2e623e17b94d27e8fdd52bd73c4245921e0e528ede02ee
+updated: 2017-06-03T17:45:55.877922042+08:00
 imports:
 - name: github.com/davecgh/go-spew
   version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
@@ -14,7 +14,7 @@ imports:
 - name: github.com/go-openapi/loads
   version: 5861a4879a2866943dce3c644c879af9e59c22a3
 - name: github.com/go-openapi/spec
-  version: 82a7c91660350d5e39c457c4decc21acde7404eb
+  version: ccf847e408b4302084e7f2539893f02954013d00
   repo: https://github.com/pengsrc/go-openapi-spec.git
 - name: github.com/go-openapi/swag
   version: c98c5a1cc708d9860aeeceea6391da6f223d479c
