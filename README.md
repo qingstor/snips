@@ -53,7 +53,7 @@ it from source code or download the precompiled binary directly.
 ### Install from Source Code
 
 Snips requires Go 1.6 or later's vendor feature, the dependencies the project
-used are included in the `vendor` directory. And we use [govendor][govender link]
+used are included in the `vendor` directory. And we use [glide][govender link]
 to manage project dependence.
 
 ``` bash
@@ -189,7 +189,7 @@ before submitting patches.
 
 The Apache License (Version 2.0, January 2004).
 
-[govender link]: https://github.com/kardianos/govendor
+[glide link]: https://glide.sh
 [qingstor-sdk-go link]: https://github.com/yunify/qingstor-sdk-go
 [api specs link]: https://github.com/yunify/qingstor-api-specs
 [sdk test scenarios link]: https://github.com/yunify/qingstor-sdk-test-scenarios

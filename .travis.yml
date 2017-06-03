@@ -6,6 +6,8 @@ go:
 
 install:
   - go get -u github.com/golang/lint/golint
+  - curl https://glide.sh/get | sh
+  - glide install
 
 script:
   - make check
