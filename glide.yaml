@@ -3,7 +3,7 @@ import:
 
 # Go OpenAPI
 - package: github.com/go-openapi/spec
-  version: 82a7c91660350d5e39c457c4decc21acde7404eb
+  version: ccf847e408b4302084e7f2539893f02954013d00
   repo:    https://github.com/pengsrc/go-openapi-spec.git
 - package: github.com/go-openapi/analysis
   version: 7222828b8ce19afee3c595aef6643b9e42150120
