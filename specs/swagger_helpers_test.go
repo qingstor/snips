@@ -160,5 +160,5 @@ func TestSwagger_parseOperation(t *testing.T) {
 	assert.Equal(t, "ListObjects", parsedOperation.ID)
 	assert.Equal(t, "GET Bucket (List Objects)", parsedOperation.Name)
 	assert.Equal(t, 4, len(parsedOperation.Request.Params.Properties))
-	assert.Equal(t, 9, len(parsedOperation.Response.Elements.Properties))
+	assert.Equal(t, 9, len(parsedOperation.Response[200].Elements.Properties))
 }
