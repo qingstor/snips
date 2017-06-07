@@ -47,7 +47,7 @@ type Operation struct {
 	Description      string
 	DocumentationURL string
 	Request          *Request
-	Response         *Response
+	Response         map[int]*Response
 }
 
 // Request stores the data of request section.
@@ -62,7 +62,7 @@ type Request struct {
 
 // Response stores the data of response section.
 type Response struct {
-	StatusCodes map[int]*StatusCode
+	StatusCodes *StatusCode
 	Headers     *Property
 	Elements    *Property
 	Body        *Property
@@ -70,6 +70,7 @@ type Response struct {
 
 // StatusCode stores the data of status code.
 type StatusCode struct {
+	Code int
 	Description string
 }
 

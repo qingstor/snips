@@ -241,20 +241,7 @@ func (s *Swagger) parseOperation(
 			},
 			Body: &capsules.Property{},
 		},
-		Response: &capsules.Response{
-			StatusCodes: map[int]*capsules.StatusCode{},
-			Headers: &capsules.Property{
-				ID:         specOperation.ID + "Output",
-				Name:       specOperation.Summary + " Output",
-				Properties: map[string]*capsules.Property{},
-			},
-			Elements: &capsules.Property{
-				ID:         specOperation.ID + "Output",
-				Name:       specOperation.Summary + " Output",
-				Properties: map[string]*capsules.Property{},
-			},
-			Body: &capsules.Property{},
-		},
+		Response: make(map[int]*capsules.Response),
 	}
 
 	if specOperation.ExternalDocs != nil {
@@ -290,33 +277,45 @@ func (s *Swagger) parseOperation(
 		}
 	}
 
-	for code, statusCode := range specOperation.Responses.ResponsesProps.StatusCodeResponses {
-		operation.Response.StatusCodes[code] = &capsules.StatusCode{
-			Description: statusCode.Description,
-		}
-	}
-
-	successResponse := specOperation.Responses.ResponsesProps.StatusCodeResponses[200]
-
-	for name, header := range successResponse.Headers {
-		operation.Response.Headers.Properties[name] = s.parseHeader(&header)
-		operation.Response.Headers.Properties[name].Name = name
-		operation.Response.Headers.Properties[name].ID = name
-	}
-
-	if successResponse.Schema != nil {
-		operation.Response.Body = s.parseSchema(successResponse.Schema)
-
-		for name, schema := range successResponse.Schema.Properties {
-			property := s.parseSchema(&schema)
-			property.Name = name
-			property.ID = name
-			operation.Response.Elements.Properties[name] = property
+	for code, specResponse := range specOperation.Responses.ResponsesProps.StatusCodeResponses {
+		operation.Response[code] = &capsules.Response{
+			StatusCodes: &capsules.StatusCode{
+				Code:        code,
+				Description: specResponse.Description,
+			},
+			Headers: &capsules.Property{
+				ID:         specOperation.ID + "Output",
+				Name:       specOperation.Summary + " Output",
+				Properties: map[string]*capsules.Property{},
+			},
+			Elements: &capsules.Property{
+				ID:         specOperation.ID + "Output",
+				Name:       specOperation.Summary + " Output",
+				Properties: map[string]*capsules.Property{},
+			},
+			Body: &capsules.Property{},
 		}
 
-		for _, schemaKey := range successResponse.Schema.Required {
-			if operation.Request.Elements.Properties[schemaKey] != nil {
-				operation.Request.Elements.Properties[schemaKey].IsRequired = true
+		for name, header := range specResponse.Headers {
+			operation.Response[code].Headers.Properties[name] = s.parseHeader(&header)
+			operation.Response[code].Headers.Properties[name].Name = name
+			operation.Response[code].Headers.Properties[name].ID = name
+		}
+
+		if specResponse.Schema != nil {
+			operation.Response[code].Body = s.parseSchema(specResponse.Schema)
+
+			for name, schema := range specResponse.Schema.Properties {
+				property := s.parseSchema(&schema)
+				property.Name = name
+				property.ID = name
+				operation.Response[code].Elements.Properties[name] = property
+			}
+
+			for _, schemaKey := range specResponse.Schema.Required {
+				if operation.Request.Elements.Properties[schemaKey] != nil {
+					operation.Request.Elements.Properties[schemaKey].IsRequired = true
+				}
 			}
 		}
 	}
