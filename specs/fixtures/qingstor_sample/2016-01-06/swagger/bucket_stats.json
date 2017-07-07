@@ -5,6 +5,9 @@
     },
     {
       "$ref": "#/parameters/zone"
+    },
+    {
+      "$ref": "#/parameters/csvArrayTest"
     }
   ],
   "get": {

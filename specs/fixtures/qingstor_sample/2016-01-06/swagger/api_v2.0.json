@@ -27,7 +27,7 @@
     "/{bucketName}": {
       "$ref": "./bucket.json"
     },
-    "/{bucketName}?stats": {
+    "/{bucketName}?stats&csv={csvArrayTest}": {
       "$ref": "./bucket_stats.json"
     }
   },
@@ -37,6 +37,9 @@
     },
     "zone": {
       "$ref": "./parameters.json#/zone"
+    },
+    "csvArrayTest": {
+      "$ref": "./parameters.json#/csvArrayTest"
     }
   },
   "definitions": {

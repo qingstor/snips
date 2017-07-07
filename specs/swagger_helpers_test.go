@@ -68,7 +68,7 @@ func TestSwagger_parseEnum(t *testing.T) {
 	assert.Nil(t, err)
 
 	swagger := Swagger{}
-	status := document.Spec().Paths.Paths["/{bucketName}?stats"].Get.Responses.StatusCodeResponses[200].Schema.Properties["status"]
+	status := document.Spec().Paths.Paths["/{bucketName}?stats&csv={csvArrayTest}"].Get.Responses.StatusCodeResponses[200].Schema.Properties["status"]
 	enum := swagger.parseEnum(status.Enum)
 	assert.Equal(t, "active", enum[0])
 	assert.Equal(t, "suspended", enum[1])
@@ -111,10 +111,18 @@ func TestSwagger_parseParameter(t *testing.T) {
 	assert.Nil(t, err)
 
 	swagger := Swagger{}
+
 	delimiter := document.Spec().Paths.Paths["/{bucketName}"].Get.Parameters[1]
 	property := swagger.parseParameter(&delimiter, &document.Spec().Parameters)
 	assert.Equal(t, "string", property.Type)
 	assert.Equal(t, "", property.ExtraType)
+	assert.Equal(t, false, property.IsRequired)
+
+	csv := document.Spec().Paths.Paths["/{bucketName}?stats&csv={csvArrayTest}"].Parameters[2]
+	property = swagger.parseParameter(&csv, &document.Spec().Parameters)
+	assert.Equal(t, "array", property.Type)
+	assert.Equal(t, "csv", property.CollectionFormat)
+	assert.Equal(t, "string", property.ExtraType)
 	assert.Equal(t, false, property.IsRequired)
 }
 
