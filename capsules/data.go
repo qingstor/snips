@@ -75,14 +75,15 @@ type StatusCode struct {
 
 // Property describes info of a property.
 type Property struct {
-	ID          string
-	Name        string
-	Description string
-	Type        string
-	ExtraType   string
-	Format      string
-	Enum        []string
-	Default     string
-	IsRequired  bool
-	Properties  map[string]*Property
+	ID               string
+	Name             string
+	Description      string
+	Type             string
+	ExtraType        string
+	Format           string
+	CollectionFormat string
+	Enum             []string
+	Default          string
+	IsRequired       bool
+	Properties       map[string]*Property
 }

@@ -151,6 +151,8 @@ func (s *Swagger) parseParameter(
 	targetParameter := parameter
 	targetType := ""
 	targetFormat := ""
+	targetExtraType := ""
+	targetCollectionFormat := ""
 
 	if refTokens := parameter.Ref.GetPointer().DecodedTokens(); len(refTokens) > 0 {
 		current := (*parameters)[refTokens[len(refTokens)-1]]
@@ -161,6 +163,10 @@ func (s *Swagger) parseParameter(
 	if targetType == "timestamp" {
 		targetFormat = s.intermediateTypeOfTime(targetParameter.Format)
 	}
+	if targetType == "array" {
+		targetExtraType = targetParameter.Items.Type
+		targetCollectionFormat = targetParameter.CollectionFormat
+	}
 
 	defaultValue := ""
 	if targetParameter.Default != nil {
@@ -168,14 +174,16 @@ func (s *Swagger) parseParameter(
 	}
 
 	return &capsules.Property{
-		ID:          targetParameter.Name,
-		Name:        targetParameter.Name,
-		Description: targetParameter.Description,
-		Type:        targetType,
-		Format:      targetFormat,
-		Enum:        s.parseEnum(targetParameter.Enum),
-		Default:     defaultValue,
-		IsRequired:  targetParameter.Required,
+		ID:               targetParameter.Name,
+		Name:             targetParameter.Name,
+		Description:      targetParameter.Description,
+		Type:             targetType,
+		ExtraType:        targetExtraType,
+		Format:           targetFormat,
+		CollectionFormat: targetCollectionFormat,
+		Enum:             s.parseEnum(targetParameter.Enum),
+		Default:          defaultValue,
+		IsRequired:       targetParameter.Required,
 	}
 }
 

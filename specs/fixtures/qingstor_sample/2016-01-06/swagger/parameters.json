@@ -11,5 +11,15 @@
     "description": "QingCloud Zone ID",
     "type": "string",
     "in": "query"
+  },
+  "csvArrayTest": {
+    "name": "csvArrayTest",
+    "description": "Test csv array",
+    "type": "array",
+    "items": {
+      "type": "string"
+    },
+    "collectionFormat": "csv",
+    "in": "query"
   }
 }
