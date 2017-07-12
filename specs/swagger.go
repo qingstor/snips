@@ -186,11 +186,9 @@ func (s *Swagger) loadSubService(
 				Operations: operations,
 			}
 
-			if !strings.Contains(s.Data.Service.Name, "QingStor") {
+			if strings.Contains(s.Data.Service.Name, "QingCloud") {
 				for _, o := range s.Data.SubServices[subServiceName].Operations {
-					exchange := o.Request.Params
-					o.Request.Params = o.Request.Elements
-					o.Request.Elements = exchange
+					o.Request.Params, o.Request.Elements = o.Request.Elements, o.Request.Params
 				}
 			}
 		}
