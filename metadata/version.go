@@ -17,4 +17,4 @@
 package metadata
 
 // Version number string.
-const Version = "0.0.9"
+const Version = "0.1.0"
