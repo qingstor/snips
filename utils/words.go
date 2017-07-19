@@ -68,6 +68,7 @@ var lowerCaseToCapitalizedWordsMap = map[string]string{
 	"topslave":      "TopSlave",
 	"trx":           "TRX",
 	"ui":            "UI",
+	"uri":           "URI",
 	"url":           "URL",
 	"usb":           "USB",
 	"vcpus":         "VCPUs",
