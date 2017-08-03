@@ -17,6 +17,7 @@
 package generator
 
 import (
+	"net/http"
 	"sort"
 	"strings"
 	"text/template"
@@ -43,6 +44,8 @@ var funcMap = template.FuncMap{
 	"passThrough": passThrough,
 
 	"firstPropertyIDInCustomizedType": firstPropertyIDInCustomizedType,
+
+	"statusText": statusText,
 }
 
 func lower(original string) string {
@@ -90,4 +93,22 @@ func firstPropertyIDInCustomizedType(customizedType *capsules.Property) string {
 	}
 
 	return ""
+}
+
+// statusText translates the integer status code into string text in camelcase.
+// For example:
+//     200 -> "OK"
+//     201 -> "Created"
+//     418 -> "Teapot"
+func statusText(statusCode int) (statusText string) {
+	statusText = http.StatusText(statusCode)
+
+	// Replace special HTTP status description.
+	statusText = strings.Replace(statusText, "I'm a teapot", "Teapot", -1)
+
+	// Remove dash and space.
+	statusText = strings.Replace(statusText, "-", "", -1)
+	statusText = strings.Replace(statusText, " ", "", -1)
+
+	return
 }
