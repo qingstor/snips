@@ -25,7 +25,7 @@ import (
 
 	"github.com/yunify/snips/capsules"
 	"github.com/yunify/snips/generator"
-	"github.com/yunify/snips/metadata"
+	"github.com/yunify/snips/constants"
 	"github.com/yunify/snips/specs"
 	"github.com/yunify/snips/templates"
 	"github.com/yunify/snips/utils"
@@ -119,7 +119,7 @@ Copyright (C) 2016 Yunify, Inc.`,
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		if flagVersion {
-			fmt.Println("snips version " + metadata.Version)
+			fmt.Println("snips version " + constants.Version)
 			return
 		}
 
