@@ -14,7 +14,15 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-package metadata
+package constants
 
-// Version number string.
-const Version = "0.1.1"
+import (
+	"reflect"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func Test_Version(t *testing.T) {
+	assert.Equal(t, "string", reflect.TypeOf(Version).String())
+}
