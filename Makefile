@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-VERSION=$(shell cat metadata/version.go | grep "Version\ =" | sed -e s/^.*\ //g | sed -e s/\"//g)
+VERSION=$(shell cat constants/version.go | grep "Version\ =" | sed -e s/^.*\ //g | sed -e s/\"//g)
 DIRS_WITHOUT_VENDOR=$(shell ls -d */ | grep -vE "vendor")
 PKGS_WITHOUT_VENDOR=$(shell go list ./... | grep -v "/vendor/")
 
