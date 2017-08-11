@@ -2,9 +2,9 @@
 
 Snips 是青云开发的通用的 HTTP API 代码生成工具，使用 OpenAPI 规范（Swagger）v2.0 格式的 API 规范为 QingCloud 和 QingStor SDK 生成各种 API 代码。它的运行方式为从 API 规范文件中读取数据，按照模板利用读取的数据生成 API 代码文件。
 
-**附注1：**API 规范由 QingCloud 和 QingStor 提供，你可以在 [qingstor-api-specs](https://github.com/yunify/qingstor-api-specs) 了解它并获取 qingstor SDK API 规范的最新版本。
+**附注1:** API 规范由 QingCloud 和 QingStor 提供，你可以在 [qingstor-api-specs](https://github.com/yunify/qingstor-api-specs) 了解它并获取 qingstor SDK API 规范的最新版本。
 
-**附注2：**关于模板，你可以在[Snips_Template_Chinese.md](https://github.com/dongxifu/snips/blob/snips_docs/docs/Snips_Template_Chinese.md) 了解它。
+**附注2：** 关于模板，你可以在[Snips_Template_Chinese.md](https://github.com/dongxifu/snips/blob/snips_docs/docs/Snips_Template_Chinese.md) 了解它。
 
 **附注3：** 关于 Snips 的数据流图及其使用，你可以在 Snips 的 [README.md](https://github.com/yunify/snips/blob/master/README.md) 了解它。
 
@@ -38,7 +38,7 @@ Snips
       ├── Property
 ```
 
-**附注：**以下讲解的中间状态是根据其包含与被包含的关系由大到小排列的。
+**附注：** 以下讲解的中间状态是根据其包含与被包含的关系由大到小排列的。
 
 ### Data
 
