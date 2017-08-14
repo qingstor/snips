@@ -20,7 +20,6 @@ package capsules
 type Capsule interface {
 	FormatCode(string) (string, error)
 	SetData(specData *Data)
-	SetVersioning(isEnabled bool)
 	SetMode(templateID string, subServiceID ...string)
 }
 
@@ -28,7 +27,6 @@ type Capsule interface {
 type CapsulePowder struct {
 	Data *Data
 
-	IsVersioningEnabled bool
 	CurrentTemplateID   string
 	CurrentSubServiceID string
 }
@@ -36,11 +34,6 @@ type CapsulePowder struct {
 // SetData sets the API spec data.
 func (c *CapsulePowder) SetData(specData *Data) {
 	c.Data = specData
-}
-
-// SetVersioning sets the versioning bool.
-func (c *CapsulePowder) SetVersioning(isEnabled bool) {
-	c.IsVersioningEnabled = isEnabled
 }
 
 // SetMode sets the template ID and sub service ID.

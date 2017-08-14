@@ -24,7 +24,7 @@ import (
 )
 
 func TestSwagger_Parse(t *testing.T) {
-	filePath, err := filepath.Abs("fixtures/qingstor_sample/2016-01-06/swagger/api_v2.0.json")
+	filePath, err := filepath.Abs("fixtures/qingstor_sample/api.json")
 	assert.Nil(t, err)
 	swagger := &Swagger{
 		FilePath: filePath,

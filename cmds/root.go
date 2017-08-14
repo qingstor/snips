@@ -24,8 +24,8 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/yunify/snips/capsules"
-	"github.com/yunify/snips/generator"
 	"github.com/yunify/snips/constants"
+	"github.com/yunify/snips/generator"
 	"github.com/yunify/snips/specs"
 	"github.com/yunify/snips/templates"
 	"github.com/yunify/snips/utils"
@@ -33,9 +33,7 @@ import (
 
 var (
 	flagVersion           bool
-	codeServiceModule     string
-	codeServiceAPIVersion string
-	codeSpecDirectory     string
+	codeSpecFile          string
 	codeSpecFormat        string
 	codeTemplateDirectory string
 	codeOutputDirectory   string
@@ -47,19 +45,11 @@ func init() {
 		"Show version.",
 	)
 	RootCMD.Flags().StringVarP(
-		&codeServiceModule, "service", "m", "",
-		"Choose the service to use.",
+		&codeSpecFile, "file", "f", "",
+		"Specify the spec file.",
 	)
 	RootCMD.Flags().StringVarP(
-		&codeServiceAPIVersion, "service-api-version", "n", "latest",
-		"Choose the service API version to use.",
-	)
-	RootCMD.Flags().StringVarP(
-		&codeSpecDirectory, "spec", "s", "",
-		"Specify spec files directory.",
-	)
-	RootCMD.Flags().StringVarP(
-		&codeSpecFormat, "spec-format", "", "Swagger-v2.0",
+		&codeSpecFormat, "format", "", "Swagger-v2.0",
 		"Specify the format of spec file.",
 	)
 	RootCMD.Flags().StringVarP(
@@ -80,28 +70,26 @@ var RootCMD = &cobra.Command{
 It is used to generate code from our public APIs currently.
 
 For example:
-  $ snips -m QingStor -n latest \
-          -s ./specs -t ./templates/qingstor/go \
+  $ snips -f ./specs/qingstor/api.json
+          -t ./templates/qingstor/go \
           -o ./publish/qingstor-sdk-go/service
   $ ...
-  $ snips --service=QingStor \
-          --service-api-version=latest \
-          --spec=./specs \
+  $ snips --file=./specs/qingstor/api.json \
           --template=./templates/qingstor/ruby \
           --output=./publish/qingstor-sdk-ruby/lib/qingstor/sdk/service
   $ ...
 
-Copyright (C) 2016 Yunify, Inc.`,
+Copyright (C) 2016-2017 Yunify, Inc.`,
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		if flagVersion {
 			return nil
 		}
 
-		if codeSpecDirectory == "" {
-			return errors.New("please specify spec files directory")
+		if codeSpecFile == "" {
+			return errors.New("please specify the spec file")
 		}
-		if _, err := os.Stat(codeSpecDirectory); err != nil {
-			return errors.New("please make sure the specs directory exists")
+		if _, err := os.Stat(codeSpecFile); err != nil {
+			return errors.New("please make sure the spec file exists")
 		}
 
 		if codeTemplateDirectory == "" {
@@ -128,29 +116,15 @@ Copyright (C) 2016 Yunify, Inc.`,
 		fmt.Println("Loaded templates from " + codeTemplateDirectory)
 		fmt.Println(len(loadedTemplates), "template(s) detected.")
 
-		service, err := specs.LoadServices(codeSpecDirectory, codeSpecFormat, codeServiceModule)
+		spec, err := specs.LoadSpec(codeSpecFile, codeSpecFormat)
 		utils.CheckErrorForExit(err)
-		apiVersion := service.APIVersions[codeServiceAPIVersion]
-		if apiVersion == nil {
-			utils.CheckErrorForExit(fmt.Errorf(
-				"API version \"%s\" of service \"%s\" not found",
-				codeServiceAPIVersion,
-				utils.SnakeCaseToCamelCase(service.Filename),
-			))
-		}
+		fmt.Printf("Loaded specification file %s (%s)\n\n", codeSpecFile, codeSpecFormat)
 
-		fmt.Printf(
-			"Loaded service %s (%s) from %s\n\n",
-			utils.SnakeCaseToCamelCase(service.Filename),
-			service.LatestAPIVersion.Filename,
-			codeSpecDirectory)
-
-		if spec := apiVersion.Spec; spec != nil {
+		if spec != nil {
 			codeCapsule := &capsules.BaseCapsule{CapsulePowder: &capsules.CapsulePowder{}}
 			codeGenerator := generator.New()
 
 			codeCapsule.SetData(spec.Data)
-			codeCapsule.SetVersioning(codeServiceAPIVersion != "latest")
 
 			sharedTemplateContent := ""
 			if template := loadedTemplates["shared"]; template != nil {
