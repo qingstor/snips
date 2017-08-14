@@ -89,7 +89,7 @@ release:
 	@echo "for Windows"
 	mkdir -p ./bin/windows
 	GOOS=windows GOARCH=amd64 go build -o ./bin/windows/snips.exe .
-	tar -C ./bin/windows/ -czf ./release/snips-v${VERSION}-windows_amd64.tar.gz snips.exe
+	cd ./bin/windows/ && zip ../../release/snips-v${VERSION}-windows_amd64.zip snips.exe
 	@echo "ok"
 
 .PHONY: clean
