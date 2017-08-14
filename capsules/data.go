@@ -70,7 +70,7 @@ type Response struct {
 
 // StatusCode stores the data of status code.
 type StatusCode struct {
-	Code int
+	Code        int
 	Description string
 }
 
