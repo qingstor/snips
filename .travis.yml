@@ -1,20 +1,13 @@
-services:
-  - docker
-sudo: required
 language: go
 go:
   - 1.8
   - 1.7
   - 1.6
-env:
-  matrix:
-    - GO_VERSION=1.8
-    - GO_VERSION=1.7
-    - GO_VERSION=1.6
-    - GO_VERSION=1.5
+
 cache:
   directories:
     - ${HOME}/source
+
 before_install:
     - pushd ${HOME}/source
     - if [[ ! -d "./make-4.0" ]]; then
@@ -28,19 +21,19 @@ before_install:
           tar -vxzf glide-v0.12.3-linux-amd64.tar.gz &&
           mv linux-amd64 glide-v0.12.3;
       fi
-    - pushd glide-v0.12.3 && sudo cp glide /usr/local/bin && popd
-    - /usr/local/bin/make --version
-    - /usr/local/bin/glide --version
+    - export PATH=${HOME}/source/glide-v0.12.3:$PATH
+    - popd
+    - make --version
+    - glide --version
+
 install:
   - go get -u github.com/golang/lint/golint
-  - /usr/local/bin/glide install
-before_script:
-  - /usr/local/bin/make update
-  - /usr/local/bin/make generate
+  - glide install
+
 script:
-  - /usr/local/bin/make check
-  - /usr/local/bin/make build
-  - /usr/local/bin/make release
-  - /usr/local/bin/make clean
-  - /usr/local/bin/make test
-  - /usr/local/bin/make test-coverage
+  - make check
+  - make build
+  - make release
+  - make clean
+  - make test
+  - make test-coverage
