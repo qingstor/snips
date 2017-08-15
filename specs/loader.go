@@ -18,29 +18,12 @@ package specs
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
-	"os"
-	"strings"
+	"path"
 
 	"github.com/yunify/snips/capsules"
-	"github.com/yunify/snips/utils"
+	"github.com/yunify/snips/constants"
 )
-
-// A Service holds the information of API service.
-type Service struct {
-	Filename         string
-	FilePath         string
-	LatestAPIVersion *APIVersion
-	APIVersions      map[string]*APIVersion
-}
-
-// A APIVersion holds the information of an API service's version.
-type APIVersion struct {
-	Filename string
-	FilePath string
-	Spec     *Spec
-}
 
 // A Spec holds the information of an API spec file.
 type Spec struct {
@@ -53,105 +36,36 @@ type Spec struct {
 	Data *capsules.Data
 }
 
-// LoadServices walks through the specs directory and load API spec information.
-func LoadServices(specDirectory, specFormat string, serviceModule string) (*Service, error) {
-	if serviceModule != strings.ToLower(serviceModule) {
-		serviceModule = utils.CamelCaseToSnakeCase(serviceModule)
-	}
-	serviceModule = utils.SnakeCaseToSnakeCase(serviceModule, true)
-
-	if _, err := os.Stat(specDirectory + "/" + serviceModule); err != nil {
-		serviceModule = strings.Replace(serviceModule, "_", "-", -1)
-		if _, err := os.Stat(specDirectory + "/" + serviceModule); err != nil {
-			return nil, fmt.Errorf("spec of service \"%s\" not found", serviceModule)
-		}
+// LoadSpec loads a specification.
+func LoadSpec(filePath, format string) (s *Spec, err error) {
+	switch format {
+	case constants.SpecFormatSwagger, constants.SpecFormatSwaggerV2,
+		constants.SpecFormatSwaggerOpenAPI, constants.SpecFormatSwaggerOpenAPIV2:
+		format = constants.SpecFormatSwaggerOpenAPIV2
+	default:
+		err = errors.New("Spec format not supported: " + format)
+		return
 	}
 
-	service := &Service{
-		Filename: serviceModule,
-		FilePath: specDirectory + "/" + serviceModule,
-	}
-
-	apiVersions, err := LoadAPIVersions(service, specFormat)
-
+	content, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return nil, err
+		return
 	}
-	service.APIVersions = apiVersions
-
-	var latestAPIVersion *APIVersion
-	for _, apiVersion := range apiVersions {
-		if latestAPIVersion != nil {
-			if apiVersion.Filename > latestAPIVersion.Filename {
-				latestAPIVersion = apiVersion
-			}
-		} else {
-			latestAPIVersion = apiVersion
-		}
+	swagger := Swagger{
+		FilePath: filePath,
+		Data:     &capsules.Data{},
 	}
-	service.LatestAPIVersion = latestAPIVersion
-	service.APIVersions["latest"] = latestAPIVersion
-
-	return service, nil
-}
-
-// LoadAPIVersions loads all API version files information.
-func LoadAPIVersions(service *Service, specFormat string) (map[string]*APIVersion, error) {
-	apiVersions := map[string]*APIVersion{}
-
-	files, err := ioutil.ReadDir(service.FilePath)
+	err = swagger.Parse("v2.0")
 	if err != nil {
-		return nil, err
+		return
 	}
 
-	for _, file := range files {
-		if !file.IsDir() {
-			continue
-		}
-
-		if strings.HasPrefix(file.Name(), "."){
-			continue
-		}
-
-		apiVersion := &APIVersion{
-			Filename: file.Name(),
-			FilePath: service.FilePath + "/" + file.Name(),
-		}
-
-		var format, filename string
-		switch specFormat {
-		case "Swagger", "Swagger-v2.0", "OpenAPI", "OpenAPI-v2.0":
-			format = "swagger"
-			filename = "api_v2.0.json"
-		default:
-			return apiVersions, errors.New("Spec format not supported: " + specFormat)
-		}
-
-		specFilePath := apiVersion.FilePath + "/" + format + "/" + filename
-		specFileContent, err := ioutil.ReadFile(specFilePath)
-		if err != nil {
-			return apiVersions, err
-		}
-
-		apiVersion.Spec = &Spec{
-			Filename:    filename,
-			FilePath:    specFilePath,
-			FileContent: string(specFileContent),
-			Format:      specFormat,
-			Data:        &capsules.Data{},
-		}
-
-		swagger := Swagger{
-			FilePath: specFilePath,
-			Data:     apiVersion.Spec.Data,
-		}
-		err = swagger.Parse("v2.0")
-		if err != nil {
-			return apiVersions, err
-		}
-
-		apiVersions[apiVersion.Filename] = apiVersion
+	s = &Spec{
+		Filename:    path.Base(filePath),
+		FilePath:    filePath,
+		FileContent: string(content),
+		Format:      format,
+		Data:        swagger.Data,
 	}
-
-	return apiVersions, nil
+	return
 }

@@ -19,12 +19,14 @@ package generator
 import (
 	"io/ioutil"
 	"os"
+	"path"
 	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
 	"github.com/yunify/snips/capsules"
+	"github.com/yunify/snips/constants"
 	"github.com/yunify/snips/specs"
 	"github.com/yunify/snips/templates"
 )
@@ -38,17 +40,18 @@ func TestGenerator(t *testing.T) {
 	assert.Equal(t, "service", loadedTemplates["service"].ID)
 	assert.Equal(t, "Mustache", manifest.Template.Format)
 
-	specPath, err := filepath.Abs("../specs/fixtures")
+	fixtures, err := filepath.Abs("../specs/fixtures")
 	assert.Nil(t, err)
-	serviceInfo, err := specs.LoadServices(specPath, "Swagger-v2.0", "QingStorSample")
+	specInfo, err := specs.LoadSpec(
+		path.Join(fixtures, "qingstor_sample", "api.json"),
+		constants.SpecFormatSwaggerOpenAPI,
+	)
 	assert.Nil(t, err)
-	assert.NotNil(t, serviceInfo)
-
-	spec := serviceInfo.LatestAPIVersion.Spec
+	assert.NotNil(t, specInfo)
 
 	capsule := &capsules.BaseCapsule{
 		CapsulePowder: &capsules.CapsulePowder{
-			Data: spec.Data,
+			Data: specInfo.Data,
 		},
 	}
 
