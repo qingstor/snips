@@ -17,28 +17,30 @@
 package specs
 
 import (
+	"path"
 	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/yunify/snips/constants"
 )
 
-func TestLoadServices(t *testing.T) {
-	filePath, err := filepath.Abs("fixtures")
+func TestLoadSpec(t *testing.T) {
+	fixtures, err := filepath.Abs("fixtures")
 	assert.Nil(t, err)
 
-	serviceInfo, err := LoadServices(filePath, "Swagger-v2.0", "qingstor_sample")
+	specInfo, err := LoadSpec(
+		path.Join(fixtures, "qingstor_sample", "api.json"),
+		constants.SpecFormatSwaggerOpenAPI,
+	)
 	assert.Nil(t, err)
-	assert.NotNil(t, serviceInfo)
+	assert.NotNil(t, specInfo)
 
-	serviceInfo, err = LoadServices(filePath, "Swagger-v2.0", "QingStorSample")
-	assert.Nil(t, err)
-	assert.NotNil(t, serviceInfo)
-
-	assert.Equal(t, "2016-01-06", serviceInfo.LatestAPIVersion.Spec.Data.Service.APIVersion)
-	assert.Equal(t, "2016-01-06", serviceInfo.APIVersions["latest"].Spec.Data.Service.APIVersion)
-	assert.Equal(t, "QingStor", serviceInfo.LatestAPIVersion.Spec.Data.Service.Name)
-	assert.Equal(t, "QingStor", serviceInfo.APIVersions["latest"].Spec.Data.Service.Name)
-	assert.Equal(t, 3, len(serviceInfo.LatestAPIVersion.Spec.Data.CustomizedTypes))
-	assert.Equal(t, 3, len(serviceInfo.APIVersions["latest"].Spec.Data.CustomizedTypes))
+	assert.Equal(t, "2016-01-06", specInfo.Data.Service.APIVersion)
+	assert.Equal(t, "2016-01-06", specInfo.Data.Service.APIVersion)
+	assert.Equal(t, "QingStor", specInfo.Data.Service.Name)
+	assert.Equal(t, "QingStor", specInfo.Data.Service.Name)
+	assert.Equal(t, 3, len(specInfo.Data.CustomizedTypes))
+	assert.Equal(t, 3, len(specInfo.Data.CustomizedTypes))
 }

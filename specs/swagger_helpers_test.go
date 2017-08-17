@@ -43,7 +43,7 @@ func TestSwagger_getIntermediateTypeOfTime(t *testing.T) {
 }
 
 func TestSwagger_getIntermediateTypeOfSchema(t *testing.T) {
-	filePath, err := filepath.Abs("fixtures/qingstor_sample/2016-01-06/swagger/api_v2.0.json")
+	filePath, err := filepath.Abs("fixtures/qingstor_sample/api.json")
 	assert.Nil(t, err)
 
 	document, err := loads.Spec(filePath)
@@ -58,7 +58,7 @@ func TestSwagger_getIntermediateTypeOfSchema(t *testing.T) {
 }
 
 func TestSwagger_parseEnum(t *testing.T) {
-	filePath, err := filepath.Abs("fixtures/qingstor_sample/2016-01-06/swagger/api_v2.0.json")
+	filePath, err := filepath.Abs("fixtures/qingstor_sample/api.json")
 	assert.Nil(t, err)
 
 	document, err := loads.Spec(filePath)
@@ -75,7 +75,7 @@ func TestSwagger_parseEnum(t *testing.T) {
 }
 
 func TestSwagger_parseSchema(t *testing.T) {
-	filePath, err := filepath.Abs("fixtures/qingstor_sample/2016-01-06/swagger/api_v2.0.json")
+	filePath, err := filepath.Abs("fixtures/qingstor_sample/api.json")
 	assert.Nil(t, err)
 
 	document, err := loads.Spec(filePath)
@@ -101,7 +101,7 @@ func TestSwagger_parseSchema(t *testing.T) {
 }
 
 func TestSwagger_parseParameter(t *testing.T) {
-	filePath, err := filepath.Abs("fixtures/qingstor_sample/2016-01-06/swagger/api_v2.0.json")
+	filePath, err := filepath.Abs("fixtures/qingstor_sample/api.json")
 	assert.Nil(t, err)
 
 	document, err := loads.Spec(filePath)
@@ -127,7 +127,7 @@ func TestSwagger_parseParameter(t *testing.T) {
 }
 
 func TestSwagger_parseHeader(t *testing.T) {
-	filePath, err := filepath.Abs("fixtures/qingstor_sample/2016-01-06/swagger/api_v2.0.json")
+	filePath, err := filepath.Abs("fixtures/qingstor_sample/api.json")
 	assert.Nil(t, err)
 
 	document, err := loads.Spec(filePath)
@@ -145,7 +145,7 @@ func TestSwagger_parseHeader(t *testing.T) {
 }
 
 func TestSwagger_parseOperation(t *testing.T) {
-	filePath, err := filepath.Abs("fixtures/qingstor_sample/2016-01-06/swagger/api_v2.0.json")
+	filePath, err := filepath.Abs("fixtures/qingstor_sample/api.json")
 	assert.Nil(t, err)
 
 	document, err := loads.Spec(filePath)

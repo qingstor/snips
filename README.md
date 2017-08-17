@@ -19,13 +19,11 @@ A code generator for QingCloud & QingStor SDKs.
 It is used to generate code from our public APIs currently.
 
 For example:
-  $ snips -m QingStor -n latest \
-          -s ./specs -t ./templates/qingstor/go \
+  $ snips -f ./specs/qingstor/api.json
+          -t ./templates/qingstor/go \
           -o ./publish/qingstor-sdk-go/service
   $ ...
-  $ snips --service=QingStor \
-          --service-api-version=latest \
-          --spec=./specs \
+  $ snips --file=./specs/qingstor/api.json \
           --template=./templates/qingstor/ruby \
           --output=./publish/qingstor-sdk-ruby/lib/qingstor/sdk/service
   $ ...
@@ -36,13 +34,11 @@ Usage:
   snips [flags]
 
 Flags:
-  -o, --output string                Specify the output directory.
-  -m, --service string               Choose the service to use.
-  -n, --service-api-version string   Choose the service API version to use. (default "latest")
-  -s, --spec string                  Specify spec files directory.
-      --spec-format string           Specify the format of spec file. (default "Swagger-v2.0")
-  -t, --template string              Specify template files directory.
-  -v, --version                      Show version.
+  -f, --file string       Specify the spec file.
+      --format string     Specify the format of spec file. (default "OpenAPI-v2.0")
+  -o, --output string     Specify the output directory.
+  -t, --template string   Specify template files directory.
+  -v, --version           Show version.
 ```
 
 ## Installation
@@ -57,7 +53,9 @@ used are included in the `vendor` directory. And we use [glide][glide link]
 to manage project dependence.
 
 ``` bash
-go get -u github.com/yunify/snips
+$ git clone git@github.com:yunify/snips.git
+$ glide install
+$ make install
 ```
 
 ___Notice:___ _You can also use Go 1.5 with the `GO15VENDOREXPERIMENT=1`._
@@ -129,6 +127,8 @@ ___Tips:___ _Include these files as git submodule._
 0. Generate code using snips, and format the generated code.
 
     ``` bash
+    $ snips --version
+    snips version 0.0.9
     $ snips --service=qingstor \
             --service-api-version=latest \
             --spec="./specs" \
