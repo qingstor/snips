@@ -217,6 +217,11 @@ func (s *Swagger) parseOperation(
 
 	parsedURI := strings.Replace(uri, "?upload_id", "", -1)
 
+	// If basePath is set, we should add it to Request URI
+	if swagger.BasePath != "" {
+		parsedURI = swagger.BasePath + parsedURI
+	}
+
 	operation := &capsules.Operation{
 		ID:          specOperation.ID,
 		Name:        specOperation.Summary,
