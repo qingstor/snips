@@ -217,8 +217,11 @@ func (s *Swagger) parseOperation(
 
 	parsedURI := strings.Replace(uri, "?upload_id", "", -1)
 
-	// If basePath is set, we should add it to Request URI
-	if swagger.BasePath != "" {
+	// If basePath is set, we should add it to Request URI.
+	// OpenAPI Specification formulates that basePath must start with "/",
+	// so we use len to judge should we need to add it.
+	// ref: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#fixed-fields
+	if  len(swagger.BasePath) > 1 {
 		parsedURI = swagger.BasePath + parsedURI
 	}
 
