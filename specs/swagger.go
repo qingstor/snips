@@ -157,6 +157,7 @@ func (s *Swagger) loadService(
 	s.Data.Service = &capsules.Service{
 		APIVersion:  swagger.Info.Version,
 		Name:        serviceName,
+		BasePath:    swagger.BasePath,
 		Description: swagger.Info.Description,
 		Properties:  property,
 		Operations:  allOperations[serviceName+"Service"],
