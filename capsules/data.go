@@ -27,6 +27,7 @@ type Data struct {
 type Service struct {
 	APIVersion  string
 	Name        string
+	BasePath    string
 	Description string
 	Properties  *Property
 	Operations  map[string]*Operation
