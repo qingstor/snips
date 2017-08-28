@@ -221,7 +221,7 @@ func (s *Swagger) parseOperation(
 	// OpenAPI Specification formulates that basePath must start with "/",
 	// so we use len to judge should we need to add it.
 	// ref: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#fixed-fields
-	if  len(swagger.BasePath) > 1 {
+	if len(swagger.BasePath) > 1 {
 		parsedURI = swagger.BasePath + parsedURI
 	}
 
