@@ -249,7 +249,7 @@ func (s *Swagger) parseOperation(
 			},
 			Body: &capsules.Property{},
 		},
-		Response: make(map[int]*capsules.Response),
+		Responses: make(map[int]*capsules.Response),
 	}
 
 	if specOperation.ExternalDocs != nil {
@@ -286,8 +286,8 @@ func (s *Swagger) parseOperation(
 	}
 
 	for code, specResponse := range specOperation.Responses.ResponsesProps.StatusCodeResponses {
-		operation.Response[code] = &capsules.Response{
-			StatusCodes: &capsules.StatusCode{
+		operation.Responses[code] = &capsules.Response{
+			StatusCode: &capsules.StatusCode{
 				Code:        code,
 				Description: specResponse.Description,
 			},
@@ -305,19 +305,19 @@ func (s *Swagger) parseOperation(
 		}
 
 		for name, header := range specResponse.Headers {
-			operation.Response[code].Headers.Properties[name] = s.parseHeader(&header)
-			operation.Response[code].Headers.Properties[name].Name = name
-			operation.Response[code].Headers.Properties[name].ID = name
+			operation.Responses[code].Headers.Properties[name] = s.parseHeader(&header)
+			operation.Responses[code].Headers.Properties[name].Name = name
+			operation.Responses[code].Headers.Properties[name].ID = name
 		}
 
 		if specResponse.Schema != nil {
-			operation.Response[code].Body = s.parseSchema(specResponse.Schema)
+			operation.Responses[code].Body = s.parseSchema(specResponse.Schema)
 
 			for name, schema := range specResponse.Schema.Properties {
 				property := s.parseSchema(&schema)
 				property.Name = name
 				property.ID = name
-				operation.Response[code].Elements.Properties[name] = property
+				operation.Responses[code].Elements.Properties[name] = property
 			}
 
 			for _, schemaKey := range specResponse.Schema.Required {
