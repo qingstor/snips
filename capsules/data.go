@@ -53,12 +53,13 @@ type Operation struct {
 
 // Request stores the data of request section.
 type Request struct {
-	Method   string
-	URI      string
-	Params   *Property
-	Headers  *Property
-	Elements *Property
-	Body     *Property
+	Method     string
+	URI        string
+	Properties *Property
+	Params     *Property
+	Headers    *Property
+	Elements   *Property
+	Body       *Property
 }
 
 // Response stores the data of response section.

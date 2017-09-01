@@ -21,8 +21,9 @@ import (
 	"testing"
 
 	"github.com/go-openapi/loads"
-
 	"github.com/stretchr/testify/assert"
+
+	"github.com/yunify/snips/capsules"
 )
 
 func TestSwagger_getIntermediateType(t *testing.T) {
@@ -156,9 +157,15 @@ func TestSwagger_parseOperation(t *testing.T) {
 
 	swagger := Swagger{}
 	operation := document.Spec().Paths.Paths["/{bucketName}"].Get
-	parsedOperation := swagger.parseOperation("/{bucketName}", "GET", operation, document.Spec())
+	property := &capsules.Property{
+		Properties: map[string]*capsules.Property{
+			"bucketName": {},
+		},
+	}
+	parsedOperation := swagger.parseOperation("/{bucketName}", "GET", property, operation, document.Spec())
 	assert.Equal(t, "ListObjects", parsedOperation.ID)
 	assert.Equal(t, "GET Bucket (List Objects)", parsedOperation.Name)
+	assert.Equal(t, 1, len(parsedOperation.Request.Properties.Properties))
 	assert.Equal(t, 4, len(parsedOperation.Request.Params.Properties))
 	assert.Equal(t, 9, len(parsedOperation.Responses[200].Elements.Properties))
 }

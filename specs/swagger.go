@@ -92,7 +92,7 @@ func (s *Swagger) parseOperations(
 				mergo.Merge(allProperties[sectionName], property)
 			}
 
-			operation := s.parseOperation(uri, method, specOperation, swagger)
+			operation := s.parseOperation(uri, method, property, specOperation, swagger)
 			if allOperations[sectionName] == nil {
 				allOperations[sectionName] = map[string]*capsules.Operation{}
 			}
