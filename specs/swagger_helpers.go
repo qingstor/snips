@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/go-openapi/spec"
+	"github.com/imdario/mergo"
 
 	"github.com/yunify/snips/capsules"
 )
@@ -214,7 +215,7 @@ func (s *Swagger) parseHeader(header *spec.Header) *capsules.Property {
 }
 
 func (s *Swagger) parseOperation(
-	uri string, method string,
+	uri string, method string, property *capsules.Property,
 	specOperation *spec.Operation, swagger *spec.Swagger) *capsules.Operation {
 
 	parsedURI := strings.Replace(uri, "?upload_id", "", -1)
@@ -234,6 +235,11 @@ func (s *Swagger) parseOperation(
 		Request: &capsules.Request{
 			Method: method,
 			URI:    parsedURI,
+			Properties: &capsules.Property{
+				ID:         specOperation.ID + "Input",
+				Name:       specOperation.Summary + " Input",
+				Properties: map[string]*capsules.Property{},
+			},
 			Params: &capsules.Property{
 				ID:         specOperation.ID + "Input",
 				Name:       specOperation.Summary + " Input",
@@ -258,8 +264,14 @@ func (s *Swagger) parseOperation(
 		operation.DocumentationURL = specOperation.ExternalDocs.URL
 	}
 
+	// Fill path params into request params
+	mergo.Merge(operation.Request.Properties, property)
+
 	for _, param := range specOperation.Parameters {
 		switch param.In {
+		case "path":
+			property := s.parseParameter(&param, &swagger.Parameters)
+			operation.Request.Properties.Properties[param.Name] = property
 		case "query":
 			property := s.parseParameter(&param, &swagger.Parameters)
 			operation.Request.Params.Properties[param.Name] = property
