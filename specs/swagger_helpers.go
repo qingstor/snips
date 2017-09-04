@@ -234,13 +234,13 @@ func (s *Swagger) parseOperation(
 		Description: specOperation.Description,
 		Request: &capsules.Request{
 			Method: method,
-			URI:    parsedURI,
+			Path:    parsedURI,
 			Properties: &capsules.Property{
 				ID:         specOperation.ID + "Input",
 				Name:       specOperation.Summary + " Input",
 				Properties: map[string]*capsules.Property{},
 			},
-			Params: &capsules.Property{
+			Query: &capsules.Property{
 				ID:         specOperation.ID + "Input",
 				Name:       specOperation.Summary + " Input",
 				Properties: map[string]*capsules.Property{},
@@ -274,7 +274,7 @@ func (s *Swagger) parseOperation(
 			operation.Request.Properties.Properties[param.Name] = property
 		case "query":
 			property := s.parseParameter(&param, &swagger.Parameters)
-			operation.Request.Params.Properties[param.Name] = property
+			operation.Request.Query.Properties[param.Name] = property
 		case "header":
 			property := s.parseParameter(&param, &swagger.Parameters)
 			operation.Request.Headers.Properties[param.Name] = property

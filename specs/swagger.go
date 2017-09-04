@@ -166,7 +166,7 @@ func (s *Swagger) loadService(
 	// Be compatible with QingCloud IaaS Services
 	if strings.Contains(s.Data.Service.Name, "QingCloud") {
 		for _, o := range s.Data.Service.Operations {
-			o.Request.Params, o.Request.Elements = o.Request.Elements, o.Request.Params
+			o.Request.Query, o.Request.Elements = o.Request.Elements, o.Request.Query
 		}
 	}
 }
@@ -189,7 +189,7 @@ func (s *Swagger) loadSubService(
 			// Be compatible with QingCloud IaaS Services
 			if strings.Contains(s.Data.Service.Name, "QingCloud") {
 				for _, o := range s.Data.SubServices[subServiceName].Operations {
-					o.Request.Params, o.Request.Elements = o.Request.Elements, o.Request.Params
+					o.Request.Query, o.Request.Elements = o.Request.Elements, o.Request.Query
 				}
 			}
 		}
