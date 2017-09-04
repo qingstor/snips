@@ -16,12 +16,23 @@
 
 package capsules
 
+import (
+	"go/format"
+	"strings"
+)
+
 // BaseCapsule provides necessary data to fill the template.
 type BaseCapsule struct {
 	*CapsulePowder
+	Language string // go golang etc
 }
 
 // FormatCode formats the generated code.
 func (c *BaseCapsule) FormatCode(code string) (string, error) {
+	switch strings.ToLower(c.Language) {
+	case "go", "golang":
+		goodCode, err := format.Source([]byte(code))
+		return string(goodCode), err
+	}
 	return code, nil
 }
