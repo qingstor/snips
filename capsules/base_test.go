@@ -15,16 +15,3 @@
 // +-------------------------------------------------------------------------
 
 package capsules
-
-import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
-
-func TestBaseCapsule_FormatCode(t *testing.T) {
-	capsule := &BaseCapsule{}
-	formatted, err := capsule.FormatCode("AbC")
-	assert.Nil(t, err)
-	assert.Equal(t, "AbC", formatted)
-}

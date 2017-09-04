@@ -86,11 +86,6 @@ func (g *Generator) Render() error {
 			}
 
 			g.code = buffer.String()
-
-			err = g.postRender()
-			if err != nil {
-				return err
-			}
 		default:
 			return fmt.Errorf("Template format not supported: \"%s\"", g.template.Format)
 		}
@@ -119,17 +114,6 @@ func (g *Generator) Write() error {
 	if err != nil {
 		return err
 	}
-
-	return nil
-}
-
-func (g *Generator) postRender() error {
-	formatted, err := g.capsule.FormatCode(g.code)
-	if err != nil {
-		return err
-	}
-
-	g.code = formatted
 
 	return nil
 }
