@@ -20,8 +20,3 @@ package capsules
 type BaseCapsule struct {
 	*CapsulePowder
 }
-
-// FormatCode formats the generated code.
-func (c *BaseCapsule) FormatCode(code string) (string, error) {
-	return code, nil
-}

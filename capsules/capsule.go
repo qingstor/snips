@@ -18,7 +18,6 @@ package capsules
 
 // Capsule defines the common functions to implement for generator.
 type Capsule interface {
-	FormatCode(string) (string, error)
 	SetData(specData *Data)
 	SetMode(templateID string, subServiceID ...string)
 }
