@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -111,7 +112,7 @@ Copyright (C) 2016-2017 Yunify, Inc.`,
 			return
 		}
 
-		loadedTemplates, _, err := templates.LoadTemplates(codeTemplateDirectory)
+		loadedTemplates, manifestConfig, err := templates.LoadTemplates(codeTemplateDirectory)
 		utils.CheckErrorForExit(err)
 		fmt.Println("Loaded templates from " + codeTemplateDirectory)
 		fmt.Println(len(loadedTemplates), "template(s) detected.")
@@ -120,8 +121,16 @@ Copyright (C) 2016-2017 Yunify, Inc.`,
 		utils.CheckErrorForExit(err)
 		fmt.Printf("Loaded specification file %s (%s)\n\n", codeSpecFile, codeSpecFormat)
 
+		var language = ""
+		if strings.HasSuffix(manifestConfig.Output.FileNaming.Extension, ".go") {
+			language = "golang"
+		}
+
 		if spec != nil {
-			codeCapsule := &capsules.BaseCapsule{CapsulePowder: &capsules.CapsulePowder{}}
+			codeCapsule := &capsules.BaseCapsule{
+				CapsulePowder: &capsules.CapsulePowder{},
+				Language:      language,
+			}
 			codeGenerator := generator.New()
 
 			codeCapsule.SetData(spec.Data)
