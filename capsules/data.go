@@ -54,9 +54,9 @@ type Operation struct {
 // Request stores the data of request section.
 type Request struct {
 	Method     string
-	URI        string
+	Path       string
 	Properties *Property
-	Params     *Property
+	Query      *Property
 	Headers    *Property
 	Elements   *Property
 	Body       *Property
