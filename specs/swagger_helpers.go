@@ -187,6 +187,8 @@ func (s *Swagger) parseParameter(
 		Enum:             s.parseEnum(targetParameter.Enum),
 		Default:          defaultValue,
 		IsRequired:       targetParameter.Required,
+		Maximum:          targetParameter.Maximum,
+		Minimum:          targetParameter.Minimum,
 	}
 }
 
@@ -234,7 +236,7 @@ func (s *Swagger) parseOperation(
 		Description: specOperation.Description,
 		Request: &capsules.Request{
 			Method: method,
-			Path:    parsedURI,
+			Path:   parsedURI,
 			Properties: &capsules.Property{
 				ID:         specOperation.ID + "Input",
 				Name:       specOperation.Summary + " Input",

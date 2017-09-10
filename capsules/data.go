@@ -88,5 +88,7 @@ type Property struct {
 	Enum             []string
 	Default          string
 	IsRequired       bool
+	Maximum          *float64
+	Minimum          *float64
 	Properties       map[string]*Property
 }
