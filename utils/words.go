@@ -93,6 +93,7 @@ var abbreviateWordsMap = []string{
 	"IPSets",
 	"MD5",
 	"NIC",
+	"OAuth",
 	"OS",
 	"OPT",
 	"QingStor",
