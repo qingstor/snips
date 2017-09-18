@@ -100,6 +100,7 @@ var abbreviateWordsMap = []string{
 	"QS",
 	"RDB",
 	"SQL",
+	"SSO",
 	"TMP",
 	"TMPDir",
 	"TRX",
