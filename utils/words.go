@@ -53,6 +53,7 @@ var lowerCaseToCapitalizedWordsMap = map[string]string{
 	"lastest":       "Latest", // Fix typo
 	"loadbalancer":  "LoadBalancer",
 	"loadbalancers": "LoadBalancers",
+	"md5":           "MD5",
 	"newsid":        "NewSID",
 	"nic":           "NIC",
 	"os":            "OS",
