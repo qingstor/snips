@@ -12,7 +12,7 @@ help:
 	@echo "  build         to create bin directory and build snips"
 	@echo "  test          to run test"
 	@echo "  test-coverage to test with coverage"
-	@echo "  install       to install snips to /usr/local/bin/snips"
+	@echo "  install       to install snips to ${GOPATH}/bin"
 	@echo "  uninstall     to uninstall snips"
 	@echo "  release       to build and release snips"
 	@echo "  clean         to clean build and test files"
@@ -64,14 +64,16 @@ test-coverage:
 
 .PHONY: install
 install: build
-	@echo "install snips to /usr/local/bin/snips"
-	cp ./bin/snips /usr/local/bin/snips
+	@if [[ -z "${GOPATH}" ]]; then echo "ERROR: $GOPATH not found."; exit 1; fi
+	@echo "Installing into ${GOPATH}/bin/snips..."
+	@cp ./bin/snips ${GOPATH}/bin/snips
 	@echo "ok"
 
 .PHONY: uninstall
 uninstall:
-	@echo "delete /usr/local/bin/snips"
-	rm -f /usr/local/bin/snips
+	@if [[ -z "${GOPATH}" ]]; then echo "ERROR: $GOPATH not found."; exit 1; fi
+	@echo "Uninstalling snips..."
+	rm -f ${GOPATH}/bin/snips
 	@echo "ok"
 
 .PHONY: release
