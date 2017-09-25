@@ -85,10 +85,25 @@ type Property struct {
 	ExtraType        string
 	Format           string
 	CollectionFormat string
-	Enum             []string
 	Default          string
 	IsRequired       bool
-	Maximum          *float64
-	Minimum          *float64
 	Properties       map[string]*Property
+
+	CommonValidations
+}
+
+// CommonValidations describes validations info of a property.
+type CommonValidations struct {
+	Maximum          *float64
+	ExclusiveMaximum bool
+	Minimum          *float64
+	ExclusiveMinimum bool
+	MaxLength        *int64
+	MinLength        *int64
+	Pattern          string
+	MaxItems         *int64
+	MinItems         *int64
+	UniqueItems      bool
+	MultipleOf       *float64
+	Enum             []string
 }
