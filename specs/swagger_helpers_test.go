@@ -125,6 +125,16 @@ func TestSwagger_parseParameter(t *testing.T) {
 	assert.Equal(t, "csv", property.CollectionFormat)
 	assert.Equal(t, "string", property.ExtraType)
 	assert.Equal(t, false, property.IsRequired)
+
+	numberValidation := document.Spec().Paths.Paths["/{bucketName}?validations&number={validationsNumberTest}&string={validationsStringTest}"].Parameters[2]
+	property = swagger.parseParameter(&numberValidation, &document.Spec().Parameters)
+	assert.Equal(t, 10, int(*property.Maximum))
+	assert.Equal(t, 1, int(*property.Minimum))
+
+	stringValidation := document.Spec().Paths.Paths["/{bucketName}?validations&number={validationsNumberTest}&string={validationsStringTest}"].Parameters[3]
+	property = swagger.parseParameter(&stringValidation, &document.Spec().Parameters)
+	assert.Equal(t, 10, int(*property.MaxLength))
+	assert.Equal(t, 1, int(*property.MinLength))
 }
 
 func TestSwagger_parseHeader(t *testing.T) {
