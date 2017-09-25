@@ -141,9 +141,11 @@ func (s *Swagger) parseSchema(schema *spec.Schema) *capsules.Property {
 		Type:        targetType,
 		ExtraType:   targetExtraType,
 		Format:      targetFormat,
-		Enum:        s.parseEnum(targetSchema.Enum),
 		Default:     defaultValue,
 		Properties:  properties,
+		CommonValidations: capsules.CommonValidations{
+			Enum: s.parseEnum(targetSchema.Enum),
+		},
 	}
 }
 
@@ -184,11 +186,22 @@ func (s *Swagger) parseParameter(
 		ExtraType:        targetExtraType,
 		Format:           targetFormat,
 		CollectionFormat: targetCollectionFormat,
-		Enum:             s.parseEnum(targetParameter.Enum),
 		Default:          defaultValue,
 		IsRequired:       targetParameter.Required,
-		Maximum:          targetParameter.Maximum,
-		Minimum:          targetParameter.Minimum,
+		CommonValidations: capsules.CommonValidations{
+			Enum:             s.parseEnum(targetParameter.Enum),
+			Maximum:          targetParameter.Maximum,
+			Minimum:          targetParameter.Minimum,
+			MaxLength:        targetParameter.MaxLength,
+			MinLength:        targetParameter.MinLength,
+			ExclusiveMaximum: targetParameter.ExclusiveMaximum,
+			ExclusiveMinimum: targetParameter.ExclusiveMinimum,
+			Pattern:          targetParameter.Pattern,
+			MaxItems:         targetParameter.MaxItems,
+			MinItems:         targetParameter.MinItems,
+			UniqueItems:      targetParameter.UniqueItems,
+			MultipleOf:       targetParameter.MultipleOf,
+		},
 	}
 }
 
@@ -211,8 +224,10 @@ func (s *Swagger) parseHeader(header *spec.Header) *capsules.Property {
 		Description: targetHeader.Description,
 		Type:        targetType,
 		Format:      targetFormat,
-		Enum:        s.parseEnum(targetHeader.Enum),
 		Default:     defaultValue,
+		CommonValidations: capsules.CommonValidations{
+			Enum: s.parseEnum(targetHeader.Enum),
+		},
 	}
 }
 
