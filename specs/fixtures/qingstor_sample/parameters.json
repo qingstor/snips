@@ -21,5 +21,21 @@
     },
     "collectionFormat": "csv",
     "in": "query"
+  },
+  "validationsNumberTest": {
+    "name": "validationsNumberTest",
+    "description": "Test number validations",
+    "type": "integer",
+    "in": "query",
+    "maximum": 10,
+    "minimum": 1
+  },
+  "validationsStringTest": {
+    "name": "validationsStringTest",
+    "description": "Test string validations",
+    "type": "string",
+    "in": "query",
+    "maxLength": 10,
+    "minLength": 1
   }
 }
