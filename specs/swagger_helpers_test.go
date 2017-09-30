@@ -135,6 +135,12 @@ func TestSwagger_parseParameter(t *testing.T) {
 	property = swagger.parseParameter(&stringValidation, &document.Spec().Parameters)
 	assert.Equal(t, 10, int(*property.MaxLength))
 	assert.Equal(t, 1, int(*property.MinLength))
+
+	formDataTest := document.Spec().Paths.Paths["/{bucketName}?validations&number={validationsNumberTest}&string={validationsStringTest}"].Post.Parameters[0]
+	property = swagger.parseParameter(&formDataTest, &document.Spec().Parameters)
+	assert.Equal(t, "string", property.Type)
+	assert.Equal(t, "", property.ExtraType)
+	assert.Equal(t, false, property.IsRequired)
 }
 
 func TestSwagger_parseHeader(t *testing.T) {
