@@ -58,6 +58,7 @@ type Request struct {
 	Properties *Property
 	Query      *Property
 	Headers    *Property
+	FormData   *Property
 	Elements   *Property
 	Body       *Property
 }
