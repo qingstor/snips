@@ -272,6 +272,11 @@ func (s *Swagger) parseOperation(
 				Name:       specOperation.Summary + " Input",
 				Properties: map[string]*capsules.Property{},
 			},
+			FormData: &capsules.Property{
+				ID:         specOperation.ID + "Input",
+				Name:       specOperation.Summary + " Input",
+				Properties: map[string]*capsules.Property{},
+			},
 			Body: &capsules.Property{},
 		},
 		Responses: make(map[int]*capsules.Response),
@@ -295,6 +300,9 @@ func (s *Swagger) parseOperation(
 		case "header":
 			property := s.parseParameter(&param, &swagger.Parameters)
 			operation.Request.Headers.Properties[param.Name] = property
+		case "formData":
+			property := s.parseParameter(&param, &swagger.Parameters)
+			operation.Request.FormData.Properties[param.Name] = property
 		case "body":
 			operation.Request.Body = s.parseSchema(param.Schema)
 			if operation.Request.Body.Description == "" && param.Description != "" {
