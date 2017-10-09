@@ -144,7 +144,18 @@ func (s *Swagger) parseSchema(schema *spec.Schema) *capsules.Property {
 		Default:     defaultValue,
 		Properties:  properties,
 		CommonValidations: capsules.CommonValidations{
-			Enum: s.parseEnum(targetSchema.Enum),
+			Enum:             s.parseEnum(targetSchema.Enum),
+			Maximum:          targetSchema.Maximum,
+			Minimum:          targetSchema.Minimum,
+			MaxLength:        targetSchema.MaxLength,
+			MinLength:        targetSchema.MinLength,
+			ExclusiveMaximum: targetSchema.ExclusiveMaximum,
+			ExclusiveMinimum: targetSchema.ExclusiveMinimum,
+			Pattern:          targetSchema.Pattern,
+			MaxItems:         targetSchema.MaxItems,
+			MinItems:         targetSchema.MinItems,
+			UniqueItems:      targetSchema.UniqueItems,
+			MultipleOf:       targetSchema.MultipleOf,
 		},
 	}
 }
