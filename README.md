@@ -4,19 +4,17 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/yunify/snips)](https://goreportcard.com/report/github.com/yunify/snips)
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/snips/blob/master/LICENSE)
 
-A code generator for QingCloud & QingStor SDKs.
+A code generator for RESTful APIs.
 
 ## Introduction
 
-Snips generates various code for QingCloud and QingStor SDKs with API
-specifications in OpenAPI Specification (Swagger) v2.0 format.
+Snips generates various code using API specifications in OpenAPI Specification (Swagger) v2.0 format.
 
 Run `snips --help` to get to help messages of snips.
 
 ``` bash
 $ snips --help
-A code generator for QingCloud & QingStor SDKs.
-It is used to generate code from our public APIs currently.
+A code generator for RESTful APIs.
 
 For example:
   $ snips -f ./specs/qingstor/api.json
