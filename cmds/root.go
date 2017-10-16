@@ -65,9 +65,8 @@ func init() {
 // RootCMD represents the base command when called without any subcommands.
 var RootCMD = &cobra.Command{
 	Use:   "snips",
-	Short: "A code generator for QingCloud & QingStor SDKs.",
-	Long: `A code generator for QingCloud & QingStor SDKs.
-It is used to generate code from our public APIs currently.
+	Short: "A code generator for RESTful APIs.",
+	Long: `A code generator for RESTful APIs.
 
 For example:
   $ snips -f ./specs/qingstor/api.json
