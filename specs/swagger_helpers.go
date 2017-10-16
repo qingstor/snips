@@ -41,6 +41,8 @@ func (s *Swagger) intermediateType(typeName, formatName string) string {
 		"string":                   "string",
 		"string-byte":              "base64",
 		"string-binary":            "binary",
+		"string-boolean":           "boolean",
+		"string-email":             "email",
 		"string-password":          "string",
 		"string-date-time":         "timestamp",
 		"string-date-time-rfc822":  "timestamp",
