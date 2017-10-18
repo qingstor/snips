@@ -45,6 +45,7 @@ type SubService struct {
 type Operation struct {
 	ID               string
 	Name             string
+	Consumes         []string
 	Description      string
 	DocumentationURL string
 	Request          *Request

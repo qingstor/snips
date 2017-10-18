@@ -261,6 +261,7 @@ func (s *Swagger) parseOperation(
 	operation := &capsules.Operation{
 		ID:          specOperation.ID,
 		Name:        specOperation.Summary,
+		Consumes:    specOperation.Consumes,
 		Description: specOperation.Description,
 		Request: &capsules.Request{
 			Method: method,
