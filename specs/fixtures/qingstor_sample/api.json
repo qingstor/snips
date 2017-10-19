@@ -30,6 +30,9 @@
     "/{bucketName}?stats&csv={csvArrayTest}": {
       "$ref": "./bucket_stats.json"
     },
+    "/{bucketName}?stats&csv={csvUint64ArrayTest}": {
+      "$ref": "./bucket_stats.json"
+    },
     "/{bucketName}?validations&number={validationsNumberTest}&string={validationsStringTest}": {
       "$ref": "./bucket_validations.json"
     }
@@ -43,6 +46,9 @@
     },
     "csvArrayTest": {
       "$ref": "./parameters.json#/csvArrayTest"
+    },
+    "csvUint64ArrayTest": {
+      "$ref": "./parameters.json#/csvUint64ArrayTest"
     },
     "validationsNumberTest": {
       "$ref": "./parameters.json#/validationsNumberTest"

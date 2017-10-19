@@ -126,6 +126,13 @@ func TestSwagger_parseParameter(t *testing.T) {
 	assert.Equal(t, "string", property.ExtraType)
 	assert.Equal(t, false, property.IsRequired)
 
+	csvUint64 := document.Spec().Paths.Paths["/{bucketName}?stats&csv={csvUint64ArrayTest}"].Parameters[3]
+	property = swagger.parseParameter(&csvUint64, &document.Spec().Parameters)
+	assert.Equal(t, "array", property.Type)
+	assert.Equal(t, "csv", property.CollectionFormat)
+	assert.Equal(t, "unsigned-long", property.ExtraType)
+	assert.Equal(t, true, property.IsRequired)
+
 	numberValidation := document.Spec().Paths.Paths["/{bucketName}?validations&number={validationsNumberTest}&string={validationsStringTest}"].Parameters[2]
 	property = swagger.parseParameter(&numberValidation, &document.Spec().Parameters)
 	assert.Equal(t, 10, int(*property.Maximum))

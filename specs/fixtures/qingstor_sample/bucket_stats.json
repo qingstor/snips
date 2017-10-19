@@ -8,6 +8,9 @@
     },
     {
       "$ref": "#/parameters/csvArrayTest"
+    },
+    {
+      "$ref": "#/parameters/csvUint64ArrayTest"
     }
   ],
   "get": {

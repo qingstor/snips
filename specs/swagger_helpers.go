@@ -182,7 +182,9 @@ func (s *Swagger) parseParameter(
 		targetFormat = s.intermediateTypeOfTime(targetParameter.Format)
 	}
 	if targetType == "array" {
-		targetExtraType = targetParameter.Items.Type
+		targetExtraType = s.intermediateType(
+			targetParameter.Items.Type, targetParameter.Items.Format,
+		)
 		targetCollectionFormat = targetParameter.CollectionFormat
 	}
 
