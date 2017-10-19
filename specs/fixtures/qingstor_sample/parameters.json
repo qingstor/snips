@@ -22,6 +22,18 @@
     "collectionFormat": "csv",
     "in": "query"
   },
+  "csvUint64ArrayTest": {
+    "name": "csvUint64ArrayTest",
+    "description": "Test csv uint64 array",
+    "type": "array",
+    "items": {
+      "type": "integer",
+      "format": "uint64"
+    },
+    "collectionFormat": "csv",
+    "in": "query",
+    "required": true
+  },
   "validationsNumberTest": {
     "name": "validationsNumberTest",
     "description": "Test number validations",
