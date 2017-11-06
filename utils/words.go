@@ -63,6 +63,8 @@ var lowerCaseToCapitalizedWordsMap = map[string]string{
 	"qs":            "QS",
 	"rdb":           "RDB",
 	"rdbs":          "RDBs",
+	"sha1":          "SHA1",
+	"sha256":        "SHA256",
 	"sql":           "SQL",
 	"tmp":           "TMP",
 	"tmpdir":        "TMPDir",
