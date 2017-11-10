@@ -21,6 +21,8 @@ type Data struct {
 	Service         *Service
 	SubServices     map[string]*SubService
 	CustomizedTypes map[string]*Property
+
+	MetaData map[string]interface{}
 }
 
 // Service stores the data of a service.

@@ -110,7 +110,7 @@ Copyright (C) 2016-2017 Yunify, Inc.`,
 			return
 		}
 
-		loadedTemplates, _, err := templates.LoadTemplates(codeTemplateDirectory)
+		loadedTemplates, manifest, err := templates.LoadTemplates(codeTemplateDirectory)
 		utils.CheckErrorForExit(err)
 		fmt.Println("Loaded templates from " + codeTemplateDirectory)
 		fmt.Println(len(loadedTemplates), "template(s) detected.")
@@ -123,6 +123,9 @@ Copyright (C) 2016-2017 Yunify, Inc.`,
 			codeCapsule := &capsules.BaseCapsule{CapsulePowder: &capsules.CapsulePowder{}}
 			codeGenerator := generator.New()
 
+			if manifest.MetaData != nil {
+				spec.Data.MetaData = manifest.MetaData
+			}
 			codeCapsule.SetData(spec.Data)
 
 			sharedTemplateContent := ""
