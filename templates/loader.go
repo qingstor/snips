@@ -54,7 +54,7 @@ func LoadTemplates(templateDirectory string) (map[string]*Template, *ManifestCon
 func loadTemplate(templateDirectory, templateID string, manifest *ManifestConfigurations) (*Template, error) {
 	templateConfiguration := manifest.TemplateFiles[templateID]
 	if templateConfiguration == nil {
-		return nil, fmt.Errorf(`configuration of template "%s" not fount`, templateID)
+		return nil, fmt.Errorf(`configuration of template "%s" not found`, templateID)
 	}
 
 	templateFilePath := templateDirectory + "/" + templateConfiguration.FilePath
