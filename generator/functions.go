@@ -42,6 +42,7 @@ var funcMap = template.FuncMap{
 
 	"replace":     replace,
 	"passThrough": passThrough,
+	"exist":       exist,
 
 	"firstPropertyIDInCustomizedType": firstPropertyIDInCustomizedType,
 
@@ -111,4 +112,21 @@ func statusText(statusCode int) (statusText string) {
 	statusText = strings.Replace(statusText, " ", "", -1)
 
 	return
+}
+
+func exist(data interface{}, index string) bool {
+	switch data := data.(type) {
+	case []interface{}:
+		for _, v := range data {
+			if v == index {
+				return true
+			}
+		}
+		return false
+	case map[string]interface{}:
+		_, ok := data[index]
+		return ok
+	default:
+		return false
+	}
 }
