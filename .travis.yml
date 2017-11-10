@@ -33,7 +33,6 @@ install:
 script:
   - make check
   - make build
-  - make release
   - make clean
   - make test
   - make test-coverage
