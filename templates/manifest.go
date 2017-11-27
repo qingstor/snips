@@ -30,7 +30,7 @@ type ManifestConfigurations struct {
 	Output          *outputConfigurations                  `json:"output" yaml:"output"`
 	TemplateFiles   map[string]*templateFileConfigurations `json:"template_files" yaml:"template_files"`
 	SupportingFiles []string                               `json:"supporting_files" yaml:"supporting_files"`
-	MetaData        map[string]interface{}                 `json:"meta_data" yaml:"meta_data"`
+	MetaData        map[string]interface{}                 `json:"metadata" yaml:"metadata"`
 }
 
 type templateConfigurations struct {
