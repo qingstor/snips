@@ -25,33 +25,33 @@ check: vet lint
 
 .PHONY: vet
 vet:
-	@echo "go tool vet, on snips packages"
+	@echo "Running go tool vet, on snips packages"
 	@go tool vet -all ${DIRS_WITHOUT_VENDOR}
-	@echo "ok"
+	@echo "Done"
 
 .PHONY: lint
 lint:
-	@echo "golint, on snips packages"
+	@echo "Running golint, on snips packages"
 	@lint=$$(for pkg in ${PKGS_WITHOUT_VENDOR}; do golint $${pkg}; done); \
 	 if [[ -n $${lint} ]]; then echo "$${lint}"; exit 1; fi
-	@echo "ok"
+	@echo "Done"
 
 .PHONY: build
 build:
-	@echo "build snips"
+	@echo "Building snips"
 	mkdir -p ./bin
 	go build -o ./bin/snips .
-	@echo "ok"
+	@echo "Done"
 
 .PHONY: test
 test:
-	@echo "run test"
+	@echo "Running test"
 	go test -v ${PKGS_WITHOUT_VENDOR}
-	@echo "ok"
+	@echo "Done"
 
 .PHONY: test-coverage
 test-coverage:
-	@echo "run test with coverage"
+	@echo "Running test with coverage"
 	for pkg in ${PKGS_WITHOUT_VENDOR}; do \
 		output="coverage$${pkg#github.com/yunify/snips}"; \
 		mkdir -p $${output}; \
@@ -60,25 +60,25 @@ test-coverage:
 			go tool cover -html="$${output}/profile.out" -o "$${output}/profile.html"; \
 		fi; \
 	done
-	@echo "ok"
+	@echo "Done"
 
 .PHONY: install
 install: build
 	@if [[ -z "${GOPATH}" ]]; then echo "ERROR: $GOPATH not found."; exit 1; fi
 	@echo "Installing into ${GOPATH}/bin/snips..."
 	@cp ./bin/snips ${GOPATH}/bin/snips
-	@echo "ok"
+	@echo "Done"
 
 .PHONY: uninstall
 uninstall:
 	@if [[ -z "${GOPATH}" ]]; then echo "ERROR: $GOPATH not found."; exit 1; fi
 	@echo "Uninstalling snips..."
 	rm -f ${GOPATH}/bin/snips
-	@echo "ok"
+	@echo "Done"
 
 .PHONY: release
 release:
-	@echo "release snips"
+	@echo "Release snips"
 	mkdir -p ./release
 	@echo "for Linux"
 	GOOS=linux GOARCH=amd64 go build -o ./bin/linux/snips .
@@ -92,7 +92,7 @@ release:
 	mkdir -p ./bin/windows
 	GOOS=windows GOARCH=amd64 go build -o ./bin/windows/snips.exe .
 	cd ./bin/windows/ && zip ../../release/snips-v${VERSION}-windows_amd64.zip snips.exe
-	@echo "ok"
+	@echo "Done"
 
 .PHONY: clean
 clean:
