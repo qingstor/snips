@@ -88,13 +88,13 @@ func TestSwagger_parseSchema(t *testing.T) {
 	swagger := Swagger{}
 
 	keys := document.Spec().Paths.Paths["/{bucketName}"].Get.Responses.StatusCodeResponses[200].Schema.Properties["keys"].Items.Schema
-	property := swagger.parseSchema(keys)
+	property := swagger.parseSchema("keys", keys)
 	assert.Equal(t, "object", property.Type)
 	assert.Equal(t, "key", property.ExtraType)
 	assert.Equal(t, false, property.IsRequired)
 
 	body := document.Spec().Paths.Paths["/{bucketName}"].Head.Responses.StatusCodeResponses[200].Schema
-	bodyProperty := swagger.parseSchema(body)
+	bodyProperty := swagger.parseSchema("200", body)
 	assert.Equal(t, "binary", bodyProperty.Type)
 	assert.Equal(t, "", bodyProperty.ExtraType)
 	assert.Equal(t, "This is response body", bodyProperty.Description)
