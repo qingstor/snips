@@ -198,7 +198,7 @@ func (s *Swagger) loadSubService(
 
 func (s *Swagger) loadCustomizedTypes(swagger *spec.Swagger) {
 	for name, definition := range swagger.Definitions {
-		s.Data.CustomizedTypes[name] = s.parseSchema(&definition)
+		s.Data.CustomizedTypes[name] = s.parseSchema(name, &definition)
 		s.Data.CustomizedTypes[name].ID = name
 		s.Data.CustomizedTypes[name].Name = name
 
