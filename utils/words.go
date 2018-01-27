@@ -20,6 +20,8 @@ var capitalizedToCapitalizedWordsMap = map[string]string{
 	"Dns":     "DNS",
 	"Dyn":     "DYN",
 	"Eip":     "EIP",
+	"Id":      "ID",
+	"Ip":      "IP",
 	"Keypair": "KeyPair",
 	"Vxnet":   "VxNet",
 }
@@ -70,6 +72,7 @@ var lowerCaseToCapitalizedWordsMap = map[string]string{
 	"tmpdir":        "TMPDir",
 	"topslave":      "TopSlave",
 	"trx":           "TRX",
+	"ttl":           "TTL",
 	"ui":            "UI",
 	"uri":           "URI",
 	"url":           "URL",
@@ -78,6 +81,7 @@ var lowerCaseToCapitalizedWordsMap = map[string]string{
 	"vcpus":         "VCPUs",
 	"vxnet":         "VxNet",
 	"vxnets":        "VxNets",
+	"wopi":          "WOPI",
 }
 
 var abbreviateWordsMap = []string{
@@ -114,4 +118,5 @@ var abbreviateWordsMap = []string{
 	"UUID",
 	"VCPUs",
 	"VxNet",
+	"WOPI",
 }
