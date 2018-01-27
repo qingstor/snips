@@ -114,4 +114,5 @@ var abbreviateWordsMap = []string{
 	"UUID",
 	"VCPUs",
 	"VxNet",
+	"WOPI",
 }
