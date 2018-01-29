@@ -40,7 +40,7 @@ func SnakeCaseToSnakeCase(original string, clean ...bool) string {
 
 	for index, part := range convertedParts {
 		if part != "" {
-			if word := lowerCaseToLowercaseWordsMap[part]; word != "" {
+			if word := lowercaseToLowercaseWordMap[part]; word != "" {
 				part = word
 			}
 		}
@@ -57,7 +57,7 @@ func SnakeCaseToCamelCase(original string) string {
 
 	for index, part := range convertedParts {
 		if part != "" {
-			if word := lowerCaseToCapitalizedWordsMap[part]; word != "" {
+			if word := lowercaseToCapitalizedWordMap[part]; word != "" {
 				part = word
 			} else {
 				part = strings.ToUpper(string(part[0])) + part[1:]

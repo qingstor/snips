@@ -34,7 +34,7 @@ func CamelCase(original string) string {
 // CamelCaseToCamelCase converts CamelCase to CamelCase.
 func CamelCaseToCamelCase(original string, clean ...bool) string {
 	converted := original
-	for before, after := range capitalizedToCapitalizedWordsMap {
+	for before, after := range capitalizedToCapitalizedWordMap {
 		converted = strings.Replace(converted, before, after, -1)
 	}
 
@@ -51,7 +51,7 @@ func CamelCaseToCamelCase(original string, clean ...bool) string {
 func CamelCaseToSnakeCase(original string) string {
 	converted := CamelCaseToCamelCase(original, true)
 
-	for _, word := range abbreviateWordsMap {
+	for _, word := range abbreviateWordMap {
 		after := strings.ToLower(word)
 		if after != "" {
 			after = strings.ToUpper(string(after[0])) + after[1:]

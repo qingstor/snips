@@ -16,21 +16,23 @@
 
 package utils
 
-var capitalizedToCapitalizedWordsMap = map[string]string{
+import (
+	"github.com/imdario/mergo"
+)
+
+var capitalizedToCapitalizedWordMap = map[string]string{
 	"Dns":     "DNS",
 	"Dyn":     "DYN",
 	"Eip":     "EIP",
-	"Id":      "ID",
-	"Ip":      "IP",
 	"Keypair": "KeyPair",
 	"Vxnet":   "VxNet",
 }
 
-var lowerCaseToLowercaseWordsMap = map[string]string{
+var lowercaseToLowercaseWordMap = map[string]string{
 	"lastest": "latest", // Fix typo
 }
 
-var lowerCaseToCapitalizedWordsMap = map[string]string{
+var lowercaseToCapitalizedWordMap = map[string]string{
 	"acl":           "ACL",
 	"cors":          "CORS",
 	"cpu":           "CPU",
@@ -72,7 +74,6 @@ var lowerCaseToCapitalizedWordsMap = map[string]string{
 	"tmpdir":        "TMPDir",
 	"topslave":      "TopSlave",
 	"trx":           "TRX",
-	"ttl":           "TTL",
 	"ui":            "UI",
 	"uri":           "URI",
 	"url":           "URL",
@@ -81,10 +82,9 @@ var lowerCaseToCapitalizedWordsMap = map[string]string{
 	"vcpus":         "VCPUs",
 	"vxnet":         "VxNet",
 	"vxnets":        "VxNets",
-	"wopi":          "WOPI",
 }
 
-var abbreviateWordsMap = []string{
+var abbreviateWordMap = []string{
 	"ACL",
 	"CORS",
 	"CPU",
@@ -118,5 +118,28 @@ var abbreviateWordsMap = []string{
 	"UUID",
 	"VCPUs",
 	"VxNet",
-	"WOPI",
+}
+
+// MergeCapitalizedToCapitalizedWordMap will merge capitalizedToCapitalizedWordMap.
+func MergeCapitalizedToCapitalizedWordMap(m map[string]string) {
+	err := mergo.MergeWithOverwrite(&capitalizedToCapitalizedWordMap, m)
+	CheckErrorForExit(err, 1)
+}
+
+// MergeLowercaseToLowercaseWordMap will merge lowercaseToLowercaseWordMap.
+func MergeLowercaseToLowercaseWordMap(m map[string]string) {
+	err := mergo.MergeWithOverwrite(&lowercaseToLowercaseWordMap, m)
+	CheckErrorForExit(err, 1)
+}
+
+// MergeLowercaseToCapitalizedWordMap will merge lowercaseToCapitalizedWordMap.
+func MergeLowercaseToCapitalizedWordMap(m map[string]string) {
+	err := mergo.MergeWithOverwrite(&lowercaseToCapitalizedWordMap, m)
+	CheckErrorForExit(err, 1)
+}
+
+// MergeAbbreviateWordMap will merge abbreviateWordMap.
+func MergeAbbreviateWordMap(m map[string]string) {
+	err := mergo.MergeWithOverwrite(&abbreviateWordMap, m)
+	CheckErrorForExit(err, 1)
 }
