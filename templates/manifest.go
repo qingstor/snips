@@ -31,6 +31,7 @@ type ManifestConfigurations struct {
 	TemplateFiles   map[string]*templateFileConfigurations `json:"template_files" yaml:"template_files"`
 	SupportingFiles []string                               `json:"supporting_files" yaml:"supporting_files"`
 	MetaData        map[string]interface{}                 `json:"metadata" yaml:"metadata"`
+	WordMaps         *wordMaps                              `json:"word_maps" yaml:"word_maps"`
 }
 
 type templateConfigurations struct {
@@ -52,6 +53,13 @@ type fileNamingConfiguration struct {
 	Extension string `json:"extension" yaml:"extension"`
 	Prefix    string `json:"prefix" yaml:"prefix"`
 	Suffix    string `json:"suffix" yaml:"suffix"`
+}
+
+type wordMaps struct {
+	CapitalizedToCapitalized map[string]string `json:"capitalized_to_capitalized" yaml:"capitalized_to_capitalized"`
+	LowercaseToLowercase     map[string]string `json:"lowercase_to_lowercase" yaml:"lowercase_to_lowercase"`
+	LowercaseToCapitalized   map[string]string `json:"lowercase_to_capitalized" yaml:"lowercase_to_capitalized"`
+	Abbreviate               map[string]string `json:"abbreviate" yaml:"abbreviate"`
 }
 
 func loadManifestFromTemplateDirectory(path string) (*ManifestConfigurations, error) {

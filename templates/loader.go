@@ -22,6 +22,8 @@ import (
 	"path/filepath"
 
 	"github.com/imdario/mergo"
+
+	"github.com/yunify/snips/utils"
 )
 
 // LoadTemplates read the template manifest and load all templates info.
@@ -31,6 +33,22 @@ func LoadTemplates(templateDirectory string) (map[string]*Template, *ManifestCon
 	manifest, err := loadManifestFromTemplateDirectory(templateDirectory)
 	if err != nil {
 		return templates, nil, err
+	}
+	// Load manifest word map.
+	if manifest.WordMaps != nil {
+		w := manifest.WordMaps
+		if len(w.Abbreviate) != 0 {
+			utils.MergeAbbreviateWordMap(w.Abbreviate)
+		}
+		if len(w.CapitalizedToCapitalized) != 0 {
+			utils.MergeCapitalizedToCapitalizedWordMap(w.CapitalizedToCapitalized)
+		}
+		if len(w.LowercaseToCapitalized) != 0 {
+			utils.MergeLowercaseToCapitalizedWordMap(w.LowercaseToCapitalized)
+		}
+		if len(w.LowercaseToLowercase) != 0 {
+			utils.MergeLowercaseToLowercaseWordMap(w.LowercaseToLowercase)
+		}
 	}
 
 	for templateID := range manifest.TemplateFiles {
