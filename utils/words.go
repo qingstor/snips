@@ -139,7 +139,20 @@ func MergeLowercaseToCapitalizedWordMap(m map[string]string) {
 }
 
 // MergeAbbreviateWordMap will merge abbreviateWordMap.
-func MergeAbbreviateWordMap(m map[string]string) {
-	err := mergo.MergeWithOverwrite(&abbreviateWordMap, m)
-	CheckErrorForExit(err, 1)
+func MergeAbbreviateWordMap(m []string) {
+	t := map[string]struct{}{}
+
+	for _, v := range abbreviateWordMap {
+		t[v] = struct{}{}
+	}
+	for _, v := range m {
+		t[v] = struct{}{}
+	}
+
+	abbreviateWordMap = make([]string, len(t))
+	i := 0
+	for k := range t {
+		abbreviateWordMap[i] = k
+		i++
+	}
 }
