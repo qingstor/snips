@@ -93,6 +93,8 @@ type Property struct {
 	IsRequired       bool
 	Properties       map[string]*Property
 
+	Items *Property
+
 	CommonValidations
 }
 
