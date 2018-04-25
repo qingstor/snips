@@ -111,26 +111,35 @@ func (s *Swagger) parseOperations(
 		}
 
 		if pathItem.Get != nil {
-			parseOperation(requestURI, "GET", pathItem.Get, property)
+			s.parseOperationsItems(parseOperation, requestURI, &pathItem, property)
 		}
-		if pathItem.Put != nil {
-			parseOperation(requestURI, "PUT", pathItem.Put, property)
-		}
-		if pathItem.Post != nil {
-			parseOperation(requestURI, "POST", pathItem.Post, property)
-		}
-		if pathItem.Delete != nil {
-			parseOperation(requestURI, "DELETE", pathItem.Delete, property)
-		}
-		if pathItem.Options != nil {
-			parseOperation(requestURI, "OPTIONS", pathItem.Options, property)
-		}
-		if pathItem.Head != nil {
-			parseOperation(requestURI, "HEAD", pathItem.Head, property)
-		}
-		if pathItem.Patch != nil {
-			parseOperation(requestURI, "PATCH", pathItem.Patch, property)
-		}
+	}
+}
+
+func (s *Swagger) parseOperationsItems(
+	parse func(uri string, method string, specOperation *spec.Operation, property *capsules.Property),
+	requestURI string, item *spec.PathItem, property *capsules.Property,
+) {
+	if item.Get != nil {
+		parse(requestURI, "GET", item.Get, property)
+	}
+	if item.Put != nil {
+		parse(requestURI, "PUT", item.Put, property)
+	}
+	if item.Post != nil {
+		parse(requestURI, "POST", item.Post, property)
+	}
+	if item.Delete != nil {
+		parse(requestURI, "DELETE", item.Delete, property)
+	}
+	if item.Options != nil {
+		parse(requestURI, "OPTIONS", item.Options, property)
+	}
+	if item.Head != nil {
+		parse(requestURI, "HEAD", item.Head, property)
+	}
+	if item.Patch != nil {
+		parse(requestURI, "PATCH", item.Patch, property)
 	}
 }
 

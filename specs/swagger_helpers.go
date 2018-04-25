@@ -252,6 +252,41 @@ func (s *Swagger) parseHeader(header *spec.Header) *capsules.Property {
 	}
 }
 
+func (s *Swagger) parseParameters(operation *capsules.Operation, parameter *spec.Parameter, swagger *spec.Swagger) {
+	switch parameter.In {
+	case "path":
+		property := s.parseParameter(parameter, &swagger.Parameters)
+		operation.Request.Properties.Properties[parameter.Name] = property
+	case "query":
+		property := s.parseParameter(parameter, &swagger.Parameters)
+		operation.Request.Query.Properties[parameter.Name] = property
+	case "header":
+		property := s.parseParameter(parameter, &swagger.Parameters)
+		operation.Request.Headers.Properties[parameter.Name] = property
+	case "formData":
+		property := s.parseParameter(parameter, &swagger.Parameters)
+		operation.Request.FormData.Properties[parameter.Name] = property
+	case "body":
+		operation.Request.Body = s.parseSchema(parameter.Name, parameter.Schema)
+		if operation.Request.Body.Description == "" && parameter.Description != "" {
+			operation.Request.Body.Description = parameter.Description
+		}
+
+		for name, schema := range parameter.Schema.Properties {
+			property := s.parseSchema(name, &schema)
+			property.Name = name
+			property.ID = name
+			operation.Request.Elements.Properties[name] = property
+		}
+
+		for _, schemaKey := range parameter.Schema.Required {
+			if operation.Request.Elements.Properties[schemaKey] != nil {
+				operation.Request.Elements.Properties[schemaKey].IsRequired = true
+			}
+		}
+	}
+}
+
 func (s *Swagger) parseOperation(
 	uri string, method string, property *capsules.Property,
 	specOperation *spec.Operation, swagger *spec.Swagger) *capsules.Operation {
@@ -311,39 +346,8 @@ func (s *Swagger) parseOperation(
 	// Fill path params into request params
 	mergo.Merge(operation.Request.Properties, property)
 
-	for _, param := range specOperation.Parameters {
-		switch param.In {
-		case "path":
-			property := s.parseParameter(&param, &swagger.Parameters)
-			operation.Request.Properties.Properties[param.Name] = property
-		case "query":
-			property := s.parseParameter(&param, &swagger.Parameters)
-			operation.Request.Query.Properties[param.Name] = property
-		case "header":
-			property := s.parseParameter(&param, &swagger.Parameters)
-			operation.Request.Headers.Properties[param.Name] = property
-		case "formData":
-			property := s.parseParameter(&param, &swagger.Parameters)
-			operation.Request.FormData.Properties[param.Name] = property
-		case "body":
-			operation.Request.Body = s.parseSchema(param.Name, param.Schema)
-			if operation.Request.Body.Description == "" && param.Description != "" {
-				operation.Request.Body.Description = param.Description
-			}
-
-			for name, schema := range param.Schema.Properties {
-				property := s.parseSchema(name, &schema)
-				property.Name = name
-				property.ID = name
-				operation.Request.Elements.Properties[name] = property
-			}
-
-			for _, schemaKey := range param.Schema.Required {
-				if operation.Request.Elements.Properties[schemaKey] != nil {
-					operation.Request.Elements.Properties[schemaKey].IsRequired = true
-				}
-			}
-		}
+	for _, parameter := range specOperation.Parameters {
+		s.parseParameters(operation, &parameter, swagger)
 	}
 
 	for code, specResponse := range specOperation.Responses.ResponsesProps.StatusCodeResponses {
