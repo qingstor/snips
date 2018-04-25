@@ -110,9 +110,7 @@ func (s *Swagger) parseOperations(
 			property.Properties[paramProperty.Name] = paramProperty
 		}
 
-		if pathItem.Get != nil {
-			s.parseOperationsItems(parseOperation, requestURI, &pathItem, property)
-		}
+		s.parseOperationsItems(parseOperation, requestURI, &pathItem, property)
 	}
 }
 
