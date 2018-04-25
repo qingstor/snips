@@ -105,12 +105,19 @@ func (s *Swagger) parseSchema(name string, schema *spec.Schema) *capsules.Proper
 	targetType := ""
 	targetExtraType := ""
 	targetFormat := ""
+	targetItems := &capsules.Property{}
 
 	if refTokens := targetSchema.Ref.GetPointer().DecodedTokens(); len(refTokens) > 0 {
 		targetType = strings.Join(schema.Type, "")
 		switch targetType {
 		case "array":
-			targetExtraType = s.intermediateTypeOfSchema(targetSchema.Items.Schema)
+			targetItems = &capsules.Property{
+				Type: s.intermediateTypeOfSchema(targetSchema.Items.Schema),
+				CommonValidations: capsules.CommonValidations{
+					Enum: s.parseEnum(targetSchema.Items.Schema.Enum),
+				},
+			}
+			targetExtraType = targetItems.Type
 		default:
 			targetType = "object"
 			targetExtraType = s.intermediateTypeOfSchema(targetSchema)
@@ -120,12 +127,17 @@ func (s *Swagger) parseSchema(name string, schema *spec.Schema) *capsules.Proper
 		targetSchema.AdditionalProperties.Allows {
 		targetSchema = targetSchema.AdditionalProperties.Schema
 		targetType = "map"
-		targetExtraType = s.intermediateTypeOfSchema(targetSchema)
 	} else {
 		targetType = s.intermediateTypeOfSchema(targetSchema)
 		switch targetType {
 		case "array":
-			targetExtraType = s.intermediateTypeOfSchema(targetSchema.Items.Schema)
+			targetItems = &capsules.Property{
+				Type: s.intermediateTypeOfSchema(targetSchema.Items.Schema),
+				CommonValidations: capsules.CommonValidations{
+					Enum: s.parseEnum(targetSchema.Items.Schema.Enum),
+				},
+			}
+			targetExtraType = targetItems.Type
 		case "timestamp":
 			targetFormat = s.intermediateTypeOfTime(targetSchema.Format)
 		}
@@ -148,6 +160,7 @@ func (s *Swagger) parseSchema(name string, schema *spec.Schema) *capsules.Proper
 		Description: targetSchema.Description,
 		Type:        targetType,
 		ExtraType:   targetExtraType,
+		Items:       targetItems,
 		Format:      targetFormat,
 		Default:     defaultValue,
 		Properties:  properties,
@@ -177,6 +190,7 @@ func (s *Swagger) parseParameter(
 	targetFormat := ""
 	targetExtraType := ""
 	targetCollectionFormat := ""
+	targetItems := &capsules.Property{}
 
 	if refTokens := parameter.Ref.GetPointer().DecodedTokens(); len(refTokens) > 0 {
 		current := (*parameters)[refTokens[len(refTokens)-1]]
@@ -188,9 +202,15 @@ func (s *Swagger) parseParameter(
 		targetFormat = s.intermediateTypeOfTime(targetParameter.Format)
 	}
 	if targetType == "array" {
-		targetExtraType = s.intermediateType(
-			targetParameter.Items.Type, targetParameter.Items.Format,
-		)
+		targetItems = &capsules.Property{
+			Type: s.intermediateType(
+				targetParameter.Items.Type, targetParameter.Items.Format,
+			),
+			CommonValidations: capsules.CommonValidations{
+				Enum: s.parseEnum(targetParameter.Items.Enum),
+			},
+		}
+		targetExtraType = targetItems.Type
 		targetCollectionFormat = targetParameter.CollectionFormat
 	}
 
@@ -203,8 +223,9 @@ func (s *Swagger) parseParameter(
 		ID:               targetParameter.Name,
 		Name:             targetParameter.Name,
 		Description:      targetParameter.Description,
-		Type:             targetType,
 		ExtraType:        targetExtraType,
+		Type:             targetType,
+		Items:            targetItems,
 		Format:           targetFormat,
 		CollectionFormat: targetCollectionFormat,
 		Default:          defaultValue,
@@ -230,6 +251,7 @@ func (s *Swagger) parseHeader(header *spec.Header) *capsules.Property {
 	targetHeader := header
 	targetType := ""
 	targetFormat := ""
+	targetItems := &capsules.Property{}
 
 	targetType = s.intermediateType(targetHeader.Type, targetHeader.Format)
 	if targetType == "timestamp" {
@@ -246,6 +268,7 @@ func (s *Swagger) parseHeader(header *spec.Header) *capsules.Property {
 		Type:        targetType,
 		Format:      targetFormat,
 		Default:     defaultValue,
+		Items:       targetItems,
 		CommonValidations: capsules.CommonValidations{
 			Enum: s.parseEnum(targetHeader.Enum),
 		},
