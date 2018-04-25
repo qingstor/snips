@@ -37,6 +37,7 @@ func TestTemplate(t *testing.T) {
 	assert.Equal(t, serviceTemplate.OutputFilename, "Types")
 
 	err = serviceTemplate.UpdateOutputFilePath("/test/path")
+	assert.Nil(t, err)
 	assert.NotNil(t, serviceTemplate)
 	assert.Equal(t, serviceTemplate.OutputFilePath, "/test/path/Types")
 }
