@@ -17,7 +17,11 @@
     "description": "Test csv array",
     "type": "array",
     "items": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "arrayEnumA",
+        "arrayEnumB"
+      ]
     },
     "collectionFormat": "csv",
     "in": "query"

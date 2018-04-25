@@ -73,6 +73,10 @@ func TestSwagger_parseEnum(t *testing.T) {
 	enum := swagger.parseEnum(status.Enum)
 	assert.Equal(t, "active", enum[0])
 	assert.Equal(t, "suspended", enum[1])
+
+	parameters := document.Spec().Paths.Paths["/{bucketName}?stats&csv={csvArrayTest}"].Parameters[2]
+	enum = swagger.parseEnum(parameters.Items.Enum)
+	assert.Equal(t, []string{"arrayEnumA", "arrayEnumB"}, enum)
 }
 
 func TestSwagger_parseSchema(t *testing.T) {
@@ -96,7 +100,7 @@ func TestSwagger_parseSchema(t *testing.T) {
 	body := document.Spec().Paths.Paths["/{bucketName}"].Head.Responses.StatusCodeResponses[200].Schema
 	bodyProperty := swagger.parseSchema("200", body)
 	assert.Equal(t, "binary", bodyProperty.Type)
-	assert.Equal(t, "", bodyProperty.ExtraType)
+	assert.Equal(t, "", bodyProperty.Items.Type)
 	assert.Equal(t, "This is response body", bodyProperty.Description)
 	assert.Equal(t, false, property.IsRequired)
 }
@@ -116,21 +120,21 @@ func TestSwagger_parseParameter(t *testing.T) {
 	delimiter := document.Spec().Paths.Paths["/{bucketName}"].Get.Parameters[1]
 	property := swagger.parseParameter(&delimiter, &document.Spec().Parameters)
 	assert.Equal(t, "string", property.Type)
-	assert.Equal(t, "", property.ExtraType)
+	assert.Equal(t, "", property.Items.Type)
 	assert.Equal(t, false, property.IsRequired)
 
 	csv := document.Spec().Paths.Paths["/{bucketName}?stats&csv={csvArrayTest}"].Parameters[2]
 	property = swagger.parseParameter(&csv, &document.Spec().Parameters)
 	assert.Equal(t, "array", property.Type)
 	assert.Equal(t, "csv", property.CollectionFormat)
-	assert.Equal(t, "string", property.ExtraType)
+	assert.Equal(t, "string", property.Items.Type)
 	assert.Equal(t, false, property.IsRequired)
 
 	csvUint64 := document.Spec().Paths.Paths["/{bucketName}?stats&csv={csvUint64ArrayTest}"].Parameters[3]
 	property = swagger.parseParameter(&csvUint64, &document.Spec().Parameters)
 	assert.Equal(t, "array", property.Type)
 	assert.Equal(t, "csv", property.CollectionFormat)
-	assert.Equal(t, "unsigned-long", property.ExtraType)
+	assert.Equal(t, "unsigned-long", property.Items.Type)
 	assert.Equal(t, true, property.IsRequired)
 
 	numberValidation := document.Spec().Paths.Paths["/{bucketName}?validations&number={validationsNumberTest}&string={validationsStringTest}"].Parameters[2]
@@ -146,7 +150,7 @@ func TestSwagger_parseParameter(t *testing.T) {
 	formDataTest := document.Spec().Paths.Paths["/{bucketName}?validations&number={validationsNumberTest}&string={validationsStringTest}"].Post.Parameters[0]
 	property = swagger.parseParameter(&formDataTest, &document.Spec().Parameters)
 	assert.Equal(t, "string", property.Type)
-	assert.Equal(t, "", property.ExtraType)
+	assert.Equal(t, "", property.Items.Type)
 	assert.Equal(t, false, property.IsRequired)
 }
 
@@ -164,7 +168,7 @@ func TestSwagger_parseHeader(t *testing.T) {
 	location := document.Spec().Paths.Paths["/"].Get.Responses.StatusCodeResponses[200].Headers["fake"]
 	property := swagger.parseHeader(&location)
 	assert.Equal(t, "string", property.Type)
-	assert.Equal(t, "", property.ExtraType)
+	assert.Equal(t, "", property.Items.Type)
 	assert.Equal(t, false, property.IsRequired)
 }
 
