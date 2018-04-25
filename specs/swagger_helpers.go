@@ -127,6 +127,7 @@ func (s *Swagger) parseSchema(name string, schema *spec.Schema) *capsules.Proper
 		targetSchema.AdditionalProperties.Allows {
 		targetSchema = targetSchema.AdditionalProperties.Schema
 		targetType = "map"
+		targetExtraType = s.intermediateTypeOfSchema(targetSchema)
 	} else {
 		targetType = s.intermediateTypeOfSchema(targetSchema)
 		switch targetType {
