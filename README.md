@@ -126,19 +126,17 @@ ___Tips:___ _Include these files as git submodule._
 
     ``` bash
     $ snips --version
-    snips version 0.0.9
-    $ snips --service=qingstor \
-            --service-api-version=latest \
-            --spec="./specs" \
-            --template="./template" \
-            --output="./service"
+    snips version 0.3.6
+    $ snips -f ./specs/qingstor/2016-01-06/swagger/api_v2.0.json \
+            -t ./template \
+            -o ./service
     Loaded templates from ./template
     4 template(s) detected.
-    Loaded service QingStor (2016-01-06) from ./specs
+    Loaded specification file ./specs/qingstor/2016-01-06/swagger/api_v2.0.json (Swagger-v2.0)
 
     Generating to: ./service/qingstor.go
-    Generating to: ./service/object.go
     Generating to: ./service/bucket.go
+    Generating to: ./service/object.go
     Generating to: ./service/types.go
 
     Everything looks fine.
